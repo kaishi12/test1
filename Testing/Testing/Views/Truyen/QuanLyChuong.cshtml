@@ -1,0 +1,82 @@
+﻿@using Testing.Models
+@using PagedList.Mvc;
+@model PagedList.PagedList<Testing.Models.ChuongTruyen>
+
+@{
+    ViewBag.Title = "QuanLyChuong";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<h2>QuanLyChuong</h2>
+
+<p>
+    <a href="/Truyen/QuanLyTruyenDaTao/">Trở về QL truyện</a>
+</p>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().MaProject)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().TenChuongTruyen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().LuotXem)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ThoiGianCapNhat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().DaXoa)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaProject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenChuongTruyen)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LuotXem)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ThoiGianCapNhat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DaXoa)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaChuongTruyen }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaChuongTruyen }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaChuongTruyen })
+        </td>
+    </tr>
+}
+
+</table>
+<div style="text-align:center">
+    @* Tạo liên kết các trang *@
+    <div class="MenuTrang">
+        @Html.PagedListPager(Model, page => Url.Action("QuanLyChuong", new { page = page ,@id=ViewBag.MaProject}))
+    </div>
+    <style>
+        .MenuTrang {
+            width: 100%;
+            text-align: center;
+            background-color: #3dc667;
+            display: inline-block;
+        }
+
+            .MenuTrang li {
+                display: inline;
+            }
+    </style>
+</div>
+

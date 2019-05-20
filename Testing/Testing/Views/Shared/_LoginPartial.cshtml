@@ -1,0 +1,28 @@
+﻿@using Testing.Models;
+@{
+    NguoiDung nguoi = (NguoiDung)Session["TaiKhoan"];
+}
+@if (nguoi != null)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "menu" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul @*class="nav navbar-nav navbar-right"*@ >
+            <li>
+                @Html.ActionLink("Hello " + nguoi.Taikhoan + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                <ul id="TaiKhoan">
+                    <li><a href="/User/Index">Bảng điều khiển</a></li>
+                    <li><a href="#">Thống kê</a></li>
+                    <li><a href="#">Danh sách theo dõi</a></li>
+                    <li>@Html.ActionLink("Thoát", "DangXuat", "User")</li>
+                </ul>
+            </li>          
+        </ul>
+    }
+}
+else
+{
+        <li>@Html.ActionLink("Đăng ký", "DangKy", "User")</li>
+        <li>@Html.ActionLink("Đăng Nhập", "DangNhap", "User")</li>
+}

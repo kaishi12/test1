@@ -1,0 +1,144 @@
+﻿
+@{
+    ViewBag.Title = "ThongTinTruyen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+            <div class="content_left" style="margin-top:20px;">
+                <section id="breadcrumb_custom">
+                    <div class="my_container">
+                        <div class="breadcrumb_custom">
+                            <ul>
+                                <li><a href="/Home/Index" title="Home"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                                <li>@Model.TenProject</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                <div class="manga_info">
+                    <div class="manga_info_left">
+                        @* Hình manga *@
+                        <div class="manga_info_img">
+                            <img src="~/Truyen/@Model.AnhBia" class="img-responsive">
+                        </div>
+                    </div>
+
+                    <div class="manga_info_right">
+                        @* Tên truyện *@
+                        <div class="manga_name">
+                            <h1>@Model.TenProject</h1>
+                        </div>
+                        @* Thông tin truyện *@
+                        <div class="manga_des">
+                            <ul>
+                                @* Tên khác *@
+                                <li>
+                                    <span>Tên khác: </span>@Model.TenKhac
+                                </li>
+                                @* Lượt xem *@
+                                <li><span>Lượt xem: </span>@Html.Action("TongLuotView", "Home", new { id = @Model.MaProject })</li>
+                                @* Tác giả *@
+                                <li>
+                                    <span>Tác giả: </span>
+                                    <a href="/Home/TruyenTheoTacGia/@Model.TacGia" title="@Model.TacGia">@Model.TacGia</a>
+                                </li>
+                                @* Thể loại *@
+                                <li>
+                                    <span>Thể loại: </span>
+                                    @Html.Action("TheLoaiTruyen","Home",new { id=Model.MaProject})
+                                    @*<a href="https://ww1.mangafox.online/category/action" title="Action">Action</a>, <a href="https://ww1.mangafox.online/category/comedy" title="Comedy">Comedy</a>, <a href="https://ww1.mangafox.online/category/ecchi" title="Ecchi">Ecchi</a>, <a href="https://ww1.mangafox.online/category/harem" title="Harem">Harem</a>, <a href="https://ww1.mangafox.online/category/sci-fi" title="Sci fi">Sci fi</a>, <a href="https://ww1.mangafox.online/category/seinen" title="Seinen">Seinen</a>*@
+                                </li>
+                                @* Đánh giá *@
+                                <li>
+                                    <span>Rating: </span>
+                                    <div class="stars">
+                                        <form action="">
+                                            <input class="star star-5" id="star-5" type="radio" name="star" />
+                                            <label class="star star-5" for="star-5"></label>
+                                            <input class="star star-4" id="star-4" type="radio" name="star" />
+                                            <label class="star star-4" for="star-4"></label>
+                                            <input class="star star-3" id="star-3" type="radio" name="star" />
+                                            <label class="star star-3" for="star-3"></label>
+                                            <input class="star star-2" id="star-2" type="radio" name="star" />
+                                            <label class="star star-2" for="star-2"></label>
+                                            <input class="star star-1" id="star-1" type="radio" name="star" />
+                                            <label class="star star-1" for="star-1"></label>
+                                        </form>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                @*<style>
+                    #M394429ScriptRootC322451 {
+                        min-height: 300px;
+                    }
+                </style>*@
+                <!-- Composite Start -->
+                @*<div id="M394429ScriptRootC322451">
+                    <div id="M394429PreloadC322451">
+                        Loading...
+                    </div>
+                    <script>
+                        (function () {
+                            var D = new Date(), d = document, b = 'body', ce = 'createElement', ac = 'appendChild', st = 'style', ds = 'display', n = 'none', gi = 'getElementById', lp = d.location.protocol, wp = lp.indexOf('http') == 0 ? lp : 'https:';
+                            var i = d[ce]('iframe'); i[st][ds] = n; d[gi]("M394429ScriptRootC322451")[ac](i); try { var iw = i.contentWindow.document; iw.open(); iw.writeln("<ht" + "ml><bo" + "dy></bo" + "dy></ht" + "ml>"); iw.close(); var c = iw[b]; }
+                            catch (e) { var iw = d; var c = d[gi]("M394429ScriptRootC322451"); } var dv = iw[ce]('div'); dv.id = "MG_ID"; dv[st][ds] = n; dv.innerHTML = 322451; c[ac](dv);
+                            var s = iw[ce]('script'); s.async = 'async'; s.defer = 'defer'; s.charset = 'utf-8'; s.src = wp + "//jsc.mgid.com/m/a/mangafox.online.322451.js?t=" + D.getYear() + D.getMonth() + D.getUTCDate() + D.getUTCHours(); c[ac](s);
+                        })();
+                    </script>
+                </div>*@
+                <!-- Composite End -->
+
+                <div class="manga_description">
+                    @* Tóm tắt *@
+                    <div class="manga_title">
+                        <h3>Tóm tắt</h3>
+                    </div>
+                    @* Đoạn mô tả *@
+                    <div class="manga_des_content">
+                        <p>
+                            @Model.MoTa
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Composite Start -->
+                @*<div id="M394429ScriptRootC322548">
+                    <div id="M394429PreloadC322548">
+                        Loading...
+                    </div>
+                    <script>
+                        (function () {
+                            var D = new Date(), d = document, b = 'body', ce = 'createElement', ac = 'appendChild', st = 'style', ds = 'display', n = 'none', gi = 'getElementById', lp = d.location.protocol, wp = lp.indexOf('http') == 0 ? lp : 'https:';
+                            var i = d[ce]('iframe'); i[st][ds] = n; d[gi]("M394429ScriptRootC322548")[ac](i); try { var iw = i.contentWindow.document; iw.open(); iw.writeln("<ht" + "ml><bo" + "dy></bo" + "dy></ht" + "ml>"); iw.close(); var c = iw[b]; }
+                            catch (e) { var iw = d; var c = d[gi]("M394429ScriptRootC322548"); } var dv = iw[ce]('div'); dv.id = "MG_ID"; dv[st][ds] = n; dv.innerHTML = 322548; c[ac](dv);
+                            var s = iw[ce]('script'); s.async = 'async'; s.defer = 'defer'; s.charset = 'utf-8'; s.src = wp + "//jsc.mgid.com/m/a/mangafox.online.322548.js?t=" + D.getYear() + D.getMonth() + D.getUTCDate() + D.getUTCHours(); c[ac](s);
+                        })();
+                    </script>
+                </div>*@
+                <!-- Composite End -->
+
+                @*<div class="manga_chapter">
+                    <div class="manga_title">
+                        <h3>Chương truyện</h3>
+                    </div>
+                    <div class="manga_chapter_list">
+                        <div class="title_list_chapter">
+                            <div class="chapter_number">Tên Chương</div>
+                            <div class="chapter_time">Lượt xem</div>
+                            <div class="chapter_view">Ngày đăng</div>
+                        </div>
+                        <ul>
+                            <li>
+                                <div class="chapter_number"><a href="https://ww1.mangafox.online/iron-ladies/chapter-260-damn-gramps-are-kind-as-hell-433467251538840" title="Chapter 260: Damn Gramps Are Kind as Hell">Chapter 260: Damn Gramps Are Kind as Hell</a></div>
+                                <div class="chapter_time">42</div>
+                                <div class="chapter_view">2 hours ago</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>*@
+                @Html.Action("ChuongTruyen","Home",new { id=Model.MaProject})
+            </div>

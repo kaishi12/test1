@@ -1,0 +1,103 @@
+﻿@using Testing.Models
+@using PagedList.Mvc;
+@model PagedList.PagedList<Testing.Models.Truyen>
+@{
+    ViewBag.Title = "QuanLyTruyenDaTao";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<h2>Quanlytruyendatao</h2>
+<br />
+<table class="table" border="1">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().MaNguoiDung)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().TrangThai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().AnhBia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().TenProject)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().TenKhac)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().MoTa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().NgayTao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().TacGia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().DaXoa)
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaNguoiDung)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TrangThai)
+        </td>
+        <td>
+            <img src="~/Truyen/@item.AnhBia" style="width:100px; height:100px;"/>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenProject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenKhac)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MoTa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayTao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TacGia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DaXoa)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaProject }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaProject }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaProject })
+        </td>
+        <td>
+           <i class="fa fa-pencil-square-o"></i> @Html.ActionLink("Quản lý chương","QuanLyChuong",new { id=@item.MaProject})
+        </td>
+    </tr>
+}
+
+</table>
+<div style="text-align:center">
+    @* Tạo liên kết các trang *@
+    <div class="MenuTrang">
+        @Html.PagedListPager(Model, page => Url.Action("QuanLyTruyenDaTao", new { page = page }))
+    </div>
+    <style>
+        .MenuTrang {
+            width: 100%;
+            text-align: center;
+            background-color: #3dc667;
+            display: inline-block;
+        }
+
+            .MenuTrang li {
+                display: inline;
+            }
+    </style>
+</div>
+

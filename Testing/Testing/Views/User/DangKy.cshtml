@@ -1,0 +1,56 @@
+﻿@model Testing.Models.NguoiDung
+
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Shared/ResAndLogLayout.cshtml";
+}
+
+<div class="form">
+    <a href="/Home/Index" style="background: #000000; color: #ffffff; display: block;  text-decoration: none;
+                                     padding: 15px;  font-size: 20px;  float: left;  width: 100%;  text-align: center;
+                                     cursor: pointer;  transition: .5s ease;">Trang chủ<i class="fa fa-home"></i></a>
+    <ul class="tab-group">
+        <li class="tab-content active">@Html.ActionLink("Đăng Ký", "DangKy", "User")</li>
+        <li>@Html.ActionLink("Đăng Nhập", "DangNhap", "User")</li>
+    </ul>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div id="signup">
+            <h1>@ViewBag.ThongBao</h1>
+            <div class="field-wrap">
+                <label>
+                    Tài Khoản<span class="req">*</span>
+                </label>
+                <input name="TaiKhoan" type="text" required autocomplete="off" />
+            </div>
+            <div class="field-wrap">
+                <label>
+                    Mật khẩu<span class="req">*</span>
+                </label>
+                <input name="MatKhau" type="password" required autocomplete="off" />
+            </div>
+            <div class="field-wrap">
+                <label>
+                    Nhập lại mật khẩu<span class="req">*</span>
+                </label>
+                <input name="MatKhau2" type="password" required autocomplete="off" />
+            </div>
+            <div class="top-row">
+                <div class="field-wrap">
+                    <label>
+                        Email<span>*</span>
+                    </label>
+                    <input name="Email" type="text" autocomplete="off" />
+                </div>
+                <div class="field-wrap">
+                    <label>
+                        Số Điện Thoại
+                    </label>
+                    <input name="SoDienThoai" type="text" autocomplete="off" />
+                </div>
+            </div>
+            <button type="submit" class="button button-block">Đăng Ký</button>
+        </div>
+    }
+</div> <!-- /form -->
