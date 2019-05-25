@@ -1,0 +1,56 @@
+﻿@model Testing.ViewModels.DangKyModel
+
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Shared/ResAndLogLayout.cshtml";
+}
+
+<div class="form">
+    <a href="/Home/Index" style="background: #000000; color: #ffffff; display: block;  text-decoration: none;
+                                     padding: 15px;  font-size: 20px;  float: left;  width: 100%;  text-align: center;
+                                     cursor: pointer;  transition: .5s ease;">Trang chủ<i class="fa fa-home"></i></a>
+    <ul class="tab-group">
+        <li class="tab-content active">@Html.ActionLink("Đăng Ký", "DangKy", "User")</li>
+        <li>@Html.ActionLink("Đăng Nhập", "DangNhap", "User")</li>
+    </ul>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <h2>@Html.ValidationSummary(false, "", new { @class = "text-danger" })</h2>
+        <div id="signup">
+
+            <div class="field-wrap">
+                <label>Tài Khoản<span class="req">*</span> </label>
+                @Html.TextBoxFor(model => model.TaiKhoan, new { @class = "form-control" })
+
+            </div>
+            <div class="field-wrap">
+                <label>
+                    Mật khẩu<span class="req">*</span>
+                </label>
+                @Html.PasswordFor(model => model.MatKhau, new { @class = "form-control" })
+            </div>
+            <div class="field-wrap">
+                <label>
+                    Nhập lại mật khẩu<span class="req">*</span>
+                </label>
+                @Html.PasswordFor(model => model.XacNhanMatKhau, new { @class = "form-control" })
+            </div>
+            <div class="top-row">
+                <div class="field-wrap">
+                    <label>
+                        Email<span>*</span>
+                    </label>
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                </div>
+                <div class="field-wrap">
+                    <label>
+                        Số Điện Thoại
+                    </label>
+                    @Html.TextBoxFor(model => model.SoDienThoai, new { @class = "form-control" })
+                </div>
+            </div>
+            <button type="submit" class="button button-block">Đăng Ký</button>
+        </div>
+    }
+</div> <!-- /form -->
