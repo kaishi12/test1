@@ -14,7 +14,7 @@ namespace Testing.ViewModels
         public string TaiKhoan { get; set; }
         [Display(Name = "Mật Khẩu")]
         [Required(ErrorMessage = "Yêu cầu nhâp mật khẩu ")]
-        [StringLength(32, ErrorMessage = "Tài khoản có độ dài từ 6 - 32 kí tự", MinimumLength = 6)]
+        [StringLength(32, ErrorMessage = "Mật khẩu có độ dài từ 6 - 32 kí tự", MinimumLength = 6)]
         public string MatKhau { get; set; }
         [Display(Name = "Xác Nhận Mật Khẩu")]
         [Compare("MatKhau", ErrorMessage = "Xác nhận mật khẩu không đúng")]

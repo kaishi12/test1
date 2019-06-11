@@ -1,0 +1,131 @@
+﻿@using Testing.ViewModels
+@model Testing.ViewModels.TruyenModel
+
+@{
+    ViewBag.Title = "TaoMoi";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<style>
+    .col-sm-3 {
+        text-align: center;
+    }
+</style>
+<div class="padding">
+    <div class="m-b">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/User/Index">Home</a></li>
+            <li class="breadcrumb-item"><a href="/Truyen/QuanLyTruyenDaTao">Danh sách truyện đã tạo</a></li>
+            <li class="breadcrumb-item active">Cập nhật truyện</li>
+        </ol>
+    </div>
+    <div class="col-md-12">
+        <div class="box">
+
+            <div class="box-divider m-0"></div>
+            <div class="box-body">
+                <div class="form">
+                    @using (Html.BeginForm("CapNhatTruyen", "Truyen", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="m-b text-sm">
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="TenTruyen" class="col-sm-3 form-control-label">Tên Truyện</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="TenTruyen" name="TenTruyen" placeholder="Tên Truyện" value="@Model.TenTruyen" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="TenKhac" class="col-sm-3 form-control-label">Tên khác</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="TenKhac" name="TenKhac" placeholder="Tên khác" value="@Model.TenKhac" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="fileupload" class="col-sm-3 form-control-label">Ảnh bìa</label>
+                            <div class="col-sm-7">
+                                <img src="~/Truyen/@Model.AnhBia" />
+                                <input id="AnhBia" name="AnhBia" type="hidden" value="@Model.AnhBia" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="fileupload" class="col-sm-3 form-control-label">Đổi ảnh bìa</label>
+                            <div class="col-sm-7">
+                                <input type="file" id="fileupload" name="fileupload" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword3" class="col-sm-3 form-control-label">Select</label>
+                            <div class="col-sm-5">
+                                <select class="form-control c-select" id="MaTrangThai" name="MaTrangThai">
+                                    <option selected value="-1" disabled>--Chọn Trạng Thái--</option>
+                                    @foreach (var item in ViewBag.TrangThai)
+                                    {
+                                        <option value="@item.Matrangthai">@item.Tentrangthai</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Mota" class="col-sm-3 form-control-label">Mô tả</label>
+                            <div class="col-sm-7">
+                                <textarea class="form-control" rows="3" id="MoTa" name="MoTa" required>@Model.MoTa</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="TacGia" class="col-sm-3 form-control-label" >Tác Giả</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="TacGia" name="TacGia" placeholder="Tác Giả" value="@Model.Tacgia" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="TheLoai" class="col-sm-3 form-control-label">Thể Loại</label>
+                            <div class="input-group select2-bootstrap-append col-sm-7">
+                                <select id="DSTheLoai" name="DSTheLoai" class="form-control select2" multiple multiple ui-jp="select2" ui-options="{theme: 'bootstrap'}" required>
+                                    @foreach (var item in ViewBag.TheLoai)
+                                    {
+                                        int i = 0;
+                                        foreach (var item1 in Model.DStheloai)
+                                        {
+                                            if (item.MaTheLoai == item1)
+                                            {
+                                                <option value="@item.MaTheLoai" selected>@item.TenTheLoai</option>
+                                                i++;
+
+                                            }
+                                        }
+                                        if (i == 0)
+                                        {
+                                            <option value="@item.MaTheLoai">@item.TenTheLoai</option>
+                                        }
+
+                                    }
+                                </select>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-select2-open="multi-append">
+                                        <span class="fa fa-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row m-t-md">
+                            <div class="col-sm-7 offset-8">
+                                <button type="submit" class="md-btn md-raised m-b-sm w-xs blue">Cập nhật</button>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+    document.getElementById("MaTrangThai").value = "@Model.MaTrangThai";
+    </script>
+
+
+
+

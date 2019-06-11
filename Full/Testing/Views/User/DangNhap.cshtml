@@ -1,45 +1,48 @@
 ﻿@model Testing.ViewModels.DangNhapModel
 
 @{
-    ViewBag.Title = "DangNhap";
+    ViewBag.Title = "Đăng Nhập";
     Layout = "~/Views/Shared/ResAndLogLayout.cshtml";
 }
 
 
-
-<div class="form">
-    <a href="/Home/Index" style="background: #000000; color: #ffffff; display: block;  text-decoration: none;
-                                     padding: 15px;  font-size: 20px;  float: left;  width: 100%;  text-align: center;
-                                     cursor: pointer;  transition: .5s ease;">Trang chủ<i class="fa fa-home"></i></a>
-    <ul class="tab-group">
-        <li>@Html.ActionLink("Đăng Ký", "DangKy", "User")</li>
-        <li class="tab-content active">@Html.ActionLink("Đăng Nhập", "DangNhap", "User")</li>
-    </ul>
-    @using (Html.BeginForm("DangNhap", "User", FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
-        <h2>@Html.ValidationSummary(false, "", new { @class = "text-danger" })</h2>
-        <div id="login">
-            <div class="field-wrap">
-                <label>
-                    Tài Khoản<span class="req">*</span>
-                </label>
-                @Html.TextBoxFor(model => model.TaiKhoan, new { @class = "form-control" })
+<body style="font-family:'Times New Roman'">
+    <div class="center-block w-xxl w-auto-xs p-y-md">
+        <div class="navbar">
+            <div class="pull-center">
+                <div ui-include="'../views/blocks/navbar.brand.html'"></div>
             </div>
-            <div class="field-wrap">
-                <label>
-                    Mật Khẩu<span class="req">*</span>
-                </label>
-                @Html.PasswordFor(model => model.MatKhau, new { @class = "form-control" })
-            </div>
-            <p class="forgot"><a href="#">Forgot Password?</a></p>
-            <button type="submit" class="button button-block">Get Started</button>
         </div>
-
-    }
-</div>
-<!-- /form -->
-<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src="~/Content/js/index.js"></script>
-
+        <div class="p-a-md box-color r box-shadow-z1 text-color m-a">
+            <div class="m-b text-sm">
+                Đăng Nhập với tài khoản của bạn
+            </div>
+            <div class="form">
+                @using (Html.BeginForm("DangNhap", "User", FormMethod.Post,new { ui_jp = "parsley" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div id="login">
+                        <div class="md-form-group float-label">
+                            @Html.TextBoxFor(model => model.TaiKhoan, new { @class = "md-input", type = "text", required = "required", data_parsley_required_message = "Không được để trống" })
+                            <label>
+                                Tài Khoản<span class="req">*</span>
+                            </label>
+                        </div>
+                        <div class="md-form-group float-label">
+                            @Html.PasswordFor(model => model.MatKhau, new { @class = "md-input ", type = "password", required = "required", data_parsley_required_message = "Không được để trống" })
+                            <label>
+                                Mật Khẩu<span class="req">*</span>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn primary btn-block p-x-md">Đăng Nhập</button>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="p-v-lg text-center">
+            <div class="m-b"><a ui-sref="access.forgot-password" href="forgot-password.html" class="text-primary _600">Quên mật khẩu?</a></div>
+            <div>Chưa có tài khoản? <a ui-sref="access.signup" href="/User/DangKy" class="text-primary _600">Đăng ký</a></div>
+        </div>
+    </div>
+</body>
 

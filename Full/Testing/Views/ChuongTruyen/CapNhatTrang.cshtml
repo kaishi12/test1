@@ -1,0 +1,136 @@
+﻿@model IEnumerable<Testing.Models.TrangTruyen>
+@{
+    ViewBag.Title = "CapNhatTrang";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div class="padding">
+    <div class="m-b">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/User/Index">Home</a></li>
+            <li class="breadcrumb-item"><a href="/Truyen/QuanLyTruyenDaTao">Danh sách truyện đã tạo</a></li>
+            <li class="breadcrumb-item"><a href="/Truyen/QuanLyChuong/@ViewBag.MaTruyen">Danh sách chương </a></li>
+            <li class="breadcrumb-item active">Thêm trang</li>
+        </ol>
+    </div>
+    <h2>@ViewBag.TenChuong</h2>
+    <div class="form">
+        @using (Html.BeginForm("CapNhatTrang", "ChuongTruyen", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="m-b text-sm">
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group ">
+                <label>Loại trang</label>
+                <select class="id form-control c-select col-md-3" id="MaLoaiTrang" name="MaLoaiTrang" onchange="window.location.href=$(this).val()">
+                    <option selected value="-1" disabled>--Chọn Trạng Thái--</option>
+                    @foreach (var item1 in ViewBag.LoaiTrang11)
+                    {
+                        if (ViewBag.loaitrang == item1.MaLoaiTrang)
+                        {
+                            <option value="/ChuongTruyen/CapNhatTrang/?id=@ViewBag.id&loaitrang=@item1.MaLoaiTrang" selected>@item1.TenLoaiTrang</option>
+                        }
+                        else
+                        {
+                            <option value="/ChuongTruyen/CapNhatTrang/?id=@ViewBag.id&loaitrang=@item1.MaLoaiTrang">@item1.TenLoaiTrang</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label> Số trang hiện tại</label>
+                <div class="row m-b">
+                    <input type="number" id="sotrang" class="form-control col-md-3" value="@Model.Count()" disabled>
+                    <input type="hidden" id="id" name="id" value="@ViewBag.id" />
+                    <input type="hidden" name="loaitrang" id="loaitrang" value="@ViewBag.loaitrang" />
+                    <div class="col-sm-1">
+                        <button class="md-btn md-fab m-b-sm white" type="button" onclick="myFunction()"><i class="material-icons md-24">&#xe145;</i></button>
+                    </div>
+                    <div class="col-sm-1">
+                        <button class="md-btn md-fab m-b-sm red" type="button" onclick="myFunction1()"><i class="material-icons md-24">&#xe145;</i></button>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="form-group " id="filex">
+
+                <table class="table" id="myTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Trang</th>
+                            <th>Tên Trang</th>
+
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th>@item.ThuTu</th>
+                            <th><img src="~/Truyen/@item.UrlAnh" width="500" height="700" /></th>
+                            <th>@item.TenTrang</th>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <button type="submit" class="md-btn md-raised m-b-sm w-xs blue">Lưu</button>
+
+            <script>
+                var x1 = document.getElementById("sotrang").value;
+                function myFunction() {
+
+
+                    var x2 = x1 + 1;
+                    var tr, td;
+                    var table = document.getElementById("myTable");
+                    var inputfile = document.createElement("input");
+                    inputfile.type = "file";
+                    inputfile.id = "AnhTrang";
+                    inputfile.name = "AnhTrang";
+
+                    var inputthutu = document.createElement("input");
+                    inputthutu.type = "text";
+                    inputthutu.id = "ThuTuTrang";
+                    inputthutu.name = "ThuTuTrang";
+                    inputthutu.value = x2;
+
+                    var inputten = document.createElement("input");
+
+                    inputten.type = "text";
+                    inputten.id = "TenTrang";
+                    inputten.name = "TenTrang";
+                    inputten.value = " trang " + x2;
+                    table.appendChild(tr = document.createElement("tr"));
+                    tr.appendChild(td = document.createElement("td"));
+                    td.appendChild(inputthutu);
+                    tr.appendChild(td = document.createElement("td"));
+                    td.appendChild(inputfile);
+                    tr.appendChild(td = document.createElement("td"));
+                    td.appendChild(inputten);
+                    x1++;
+                }
+                function myFunction1() {
+                    if (x1 == document.getElementById("sotrang").value) {
+                        alert("Không thể xoá");
+                    }
+                    else {
+                        document.getElementById("myTable").deleteRow(x1);
+                        x1--;
+                    }
+
+                }
+            </script>
+
+            <script>
+                function myFunction12() {
+                    var
+                        location.assign("https://www.w3schools.com");
+                }
+            </script>
+
+        }
+    </div>
+</div>

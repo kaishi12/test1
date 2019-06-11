@@ -1,0 +1,291 @@
+﻿@model Testing.ViewModels.ChuongTruyenModel
+
+@{
+    ViewBag.Title = "TaoMoi";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<style>
+    table, td, th {
+        border: 1px solid black;
+    }
+</style>
+@*<div class="padding">
+
+        <div class="box">
+            <div class="box-header b-b">
+                <h3 id="tentrang">@ViewBag.TenTrang</h3>
+            </div>
+            <div class="box-body">
+                <form ui-jp="parsley" id="form">
+                    <div id="rootwizard" ui-jp="bootstrapWizard" ui-options="{
+                onTabClick: function(tab, navigation, index) {
+                   return false;
+                },
+                onNext: function(tab, navigation, index) {
+                  var instance = $('#form').parsley();
+                  instance.validate();
+                          if(!instance.isValid()) {
+                    return false;
+
+                  }
+                }
+                }">
+                        <ul class="nav nav-pills clearfix m-b">
+                            <li class="nav-item"><a class="nav-link" href="#tab1" data-toggle="tab">First</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#tab2" data-toggle="tab">Second</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#tab3" data-toggle="tab">Third</a></li>
+                        </ul>
+
+                               <div class="form" >
+                                   <div class="tab-content">
+                                       @using (Html.BeginForm("TaoMoi", "ChuongTruyen", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                                       {
+                                           @Html.AntiForgeryToken()
+                                           <div class="m-b text-sm">
+                                               @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                                           </div>
+                                           <div class="tab-pane" id="tab1">
+                                               <div class="form-group">
+                                                   <label>Tên chương truyện</label>
+                                                   <input type="text" class="form-control col-md-4" id="TenChuong" name="TenChuong" required data-parsley-error-message="Yêu cầu nhập tên chương">
+                                                   @Html.ValidationMessageFor(model => model.TenChuong, "", new { @class = "text-danger" })
+                                               </div>
+                                               <div class="row m-b">
+                                                   <div class="col-sm-6">
+                                                       <label>Thứ tự chương</label>
+                                                       <input type="number" class="form-control" required id="ThutuChuong" name="ThutuChuong" data-parsley-error-message="Yêu cầu nhập thứ tự chương">
+                                                   </div>
+                                                   <div class="col-sm-6">
+                                                       <label>Loại trang</label>
+                                                       <select class="form-control c-select" id="MaLoaiTrang" name="MaLoaiTrang">
+                                                           <option id="MaLoaiTrang" name="MaLoaiTrang" selected value="-1">--Chọn Loại Trang--</option>
+                                                           @foreach (var item in ViewBag.LoaiTrang)
+                                                           {
+                                                               <option value="@item.MaLoaiTrang">@item.TenLoaiTrang</option>
+                                                           }
+                                                       </select>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                           <div class="tab-pane" id="tab2">
+                                               <div class="form-group">
+                                                   <label> Số trang </label>
+                                                   <div class="row m-b">
+                                                       <input type="number" id="sotrang" class="form-control col-sm-3">
+                                                       <div class="col-md-1">
+                                                           <button class="md-btn md-fab m-b-sm white" type="button" onclick="myFunction()"><i class="material-icons md-24">&#xe145;</i></button>
+                                                       </div>
+                                                       <div class="col-md-1">
+                                                           <button class="md-btn md-fab m-b-sm red" type="button" onclick="myFunction1()"><i class="material-icons md-24">&#xe872;</i></button>
+                                                       </div>
+
+                                                   </div>
+
+                                               </div>
+                                               <div class="form-group " id="filex">
+
+                                                   <table class="table" id="myTable">
+                                                       <thead>
+                                                           <tr>
+
+                                                               <th>#</th>
+                                                               <th>Trang</th>
+                                                               <th>Tên Trang</th>
+                                                           </tr>
+                                                       </thead>
+                                                   </table>
+                                               </div>
+
+                                           </div>
+                                           <div class="tab-pane" id="tab3">
+                                               Chắc chưa?
+                                               <button type="submit" class="md-btn md-raised m-b-sm w-xs blue">Tạo</button>
+
+                                           </div>
+                                           }
+                                           <ul class="pager wizard">
+                                               <li class="previous first" style="display:none;"><a>First</a></li>
+                                               <li class="previous"><a>Previous</a></li>
+                                               <li class="next last" style="display:none;"><a>Last</a></li>
+                                               <li class="next"><a>Next</a></li>
+                                           </ul>
+
+                                       </div>
+        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script>
+            var x1 = 0;
+                                       function myFunction() {
+
+                                           var x = document.getElementById("sotrang").value;
+                                           if (Number(x) < 0) {
+                                               alert("Hello! I am an alert box!!");
+                                           }
+                                           else
+                                               if (x1 > 0) {
+                                               for (var i = 0; i < Number(x1); i++) {
+                                                   document.getElementById("myTable").deleteRow(1);
+                                               }
+                                               x1 = 0;
+                                           }
+
+                                           for (var i = 0; i < Number(x); i++) {
+                                               var x2 = x1 + 1;
+                                               var tr, td;
+                                               var table = document.getElementById("myTable");
+                                               var inputfile = document.createElement("input");
+                                               inputfile.type = "file";
+                                               inputfile.id = "AnhTrang";
+                                               inputfile.name = "AnhTrang";
+
+                                               var inputthutu = document.createElement("input");
+                                               inputthutu.type = "text";
+                                               inputthutu.id = "ThuTuTrang";
+                                               inputthutu.name = "ThuTuTrang";
+                                               inputthutu.value = x2;
+
+                                               var inputten = document.createElement("input");
+
+                                               inputten.type = "text";
+                                               inputten.id = "TenTrang";
+                                               inputten.name = "TenTrang";
+                                               inputten.value = document.getElementById("TenChuong").value + " trang " + x2;
+                                               table.appendChild(tr = document.createElement("tr"));
+                                               tr.appendChild(td = document.createElement("td"));
+                                               td.appendChild(inputthutu);
+                                               tr.appendChild(td = document.createElement("td"));
+                                               td.appendChild(inputfile);
+                                               tr.appendChild(td = document.createElement("td"));
+                                               td.appendChild(inputten);
+                                               x1++;
+                                           }
+
+                                       }
+        </script>
+    </div>*@
+<div class="padding">
+    <div class="m-b">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/User/Index">Home</a></li>
+            <li class="breadcrumb-item"><a href="/Truyen/QuanLyTruyenDaTao">Danh sách truyện đã tạo</a></li>
+            <li class="breadcrumb-item"><a href="/Truyen/QuanLyChuong/@ViewBag.MaTruyen">Danh sách chương </a></li>
+            <li class="breadcrumb-item active">Tạo chương mới</li>
+        </ol>
+    </div>
+    <div class="col-md-12">
+        <div class="box">
+          
+            <div class="box-body">
+                <div class="form">
+
+                    @using (Html.BeginForm("TaoMoi", "ChuongTruyen", FormMethod.Post, new { @enctype = "multipart/form-data", ui_jp = "parsley" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="m-b text-sm">
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label>Tên chương truyện</label>
+                            <input type="text" class="form-control col-md-4" id="TenChuong" name="TenChuong" required data-parsley-error-message="Yêu cầu nhập tên chương">
+                            @Html.ValidationMessageFor(model => model.TenChuong, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="row m-b">
+                            <div class="col-sm-6">
+                                <label>Thứ tự chương</label>
+                                <input type="number" class="form-control" required id="ThutuChuong" name="ThutuChuong" data-parsley-error-message="Yêu cầu nhập thứ tự chương">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Loại trang</label>
+                                <select class="form-control c-select" id="MaLoaiTrang" name="MaLoaiTrang">
+                                    <option id="MaLoaiTrang" name="MaLoaiTrang" selected value="-1">--Chọn Loại Trang--</option>
+                                    @foreach (var item in ViewBag.LoaiTrang)
+                                    {
+                                        <option value="@item.MaLoaiTrang">@item.TenLoaiTrang</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label> Số trang </label>
+                            <div class="row m-b">
+                                <input type="number" id="sotrang" class="form-control col-sm-3">
+                                <div class="col-md-1">
+                                    <button class="md-btn md-fab m-b-sm white" type="button" onclick="myFunction()"><i class="material-icons md-24">&#xe145;</i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group " id="filex">
+                            <table class="table" id="myTable">
+                                <thead>
+                                    <tr>
+
+                                        <th>#</th>
+                                        <th>Trang</th>
+                                        <th>Tên Trang</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <button type="submit" class="md-btn md-raised m-b-sm w-xs blue">Tạo</button>
+                    }
+                    <script>
+                        var x1 = 0;
+                        function myFunction() {
+
+                            var x = document.getElementById("sotrang").value;
+                            if (Number(x) < 0) {
+                                alert("Hello! I am an alert box!!");
+                            }
+                            else
+                                if (x1 > 0) {
+                                    for (var i = 0; i < Number(x1); i++) {
+                                        document.getElementById("myTable").deleteRow(1);
+                                    }
+                                    x1 = 0;
+                                }
+
+                            for (var i = 0; i < Number(x); i++) {
+                                var x2 = x1 + 1;
+                                var tr, td;
+                                var table = document.getElementById("myTable");
+                                var inputfile = document.createElement("input");
+                                inputfile.type = "file";
+                                inputfile.id = "AnhTrang";
+                                inputfile.name = "AnhTrang";
+
+                                var inputthutu = document.createElement("input");
+                                inputthutu.type = "text";
+                                inputthutu.id = "ThuTuTrang";
+                                inputthutu.name = "ThuTuTrang";
+                                inputthutu.value = x2;
+
+                                var inputten = document.createElement("input");
+
+                                inputten.type = "text";
+                                inputten.id = "TenTrang";
+                                inputten.name = "TenTrang";
+                                inputten.value = document.getElementById("TenChuong").value + " trang " + x2;
+                                table.appendChild(tr = document.createElement("tr"));
+                                tr.appendChild(td = document.createElement("td"));
+                                td.appendChild(inputthutu);
+                                tr.appendChild(td = document.createElement("td"));
+                                td.appendChild(inputfile);
+                                tr.appendChild(td = document.createElement("td"));
+                                td.appendChild(inputten);
+                                x1++;
+                            }
+
+                        }
+                    </script>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

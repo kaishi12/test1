@@ -1,0 +1,158 @@
+﻿@model IEnumerable<Testing.Models.TrangTruyen>
+
+@{
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+@*<!DOCTYPE html>
+    <style>
+        .img-1{
+            border: 5px solid #232323;
+            width=1010px;
+            height:1432px;
+            margin:30px;
+            vertical-align:middle;
+        }
+        #head {
+            height: 100px;
+            background-color: #F5F5F5;
+            border: 1px solid #CDCDCD;
+            margin-bottom: 5px;
+        }
+        #head-link {
+            height: 50px;
+            line-height: 30px;
+            padding-left: 10px;
+            padding-right: 10px;
+            border: 1px solid #CDCDCD;
+            background-color: #F5F5F5;
+            margin-bottom: 5px;
+            clear: both;
+        }
+
+        #content {
+            text-align:center;
+        }
+        #footer {
+            height: 1000px;
+            clear: both;
+            border: 1px solid #CDCDCD;
+            background-color: #F8F8FF;
+        }
+
+
+    </style>
+    <div class="padding">
+        <div class="m-b">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/User/Index">Index</a></li>
+                <li class="breadcrumb-item active">Truyện đã tạo</li>
+                <li class="breadcrumb-item active">Truyện đã tạo</li>
+            </ol>
+        </div>
+
+        <div class="row text-center">
+
+            <div class="col-sm-3">
+                <select class="form-control c-select" id="MaLoaiTrang" name="MaLoaiTrang">
+                    <option id="MaLoaiTrang" name="MaLoaiTrang" selected value="-1">--Chọn Loại Trang--</option>
+
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-fw black">Chương trước</button>
+            </div>
+            <button class="btn btn-fw black">Chương sau</button>
+
+        </div>
+
+        <div class="col-md-12">
+            @foreach (var item in Model)
+            {
+                <img class="img-1" src="~/Truyen/@item.UrlAnh" />
+            }
+        </div>
+    </div>*@
+<div class="padding">
+    <div class="m-b">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/User/Index">Home</a></li>
+            <li class="breadcrumb-item"><a href="/Truyen/QuanLyTruyenDaTao">Danh sách truyện đã tạo</a></li>
+            <li class="breadcrumb-item"><a href="/Truyen/QuanLyChuong/@ViewBag.MaTruyen">Danh sách chương </a></li>
+            <li class="breadcrumb-item active">Chỉnh sửa</li>
+        </ol>
+    </div>
+    <div class="row m-b text-center">
+
+        <div class="col-sm-3">
+            <select class="form-control c-select" id="MaLoaiTrang" name="MaLoaiTrang">
+                <option id="MaLoaiTrang" name="MaLoaiTrang" selected value="-1">--Chọn Loại Trang--</option>
+
+            </select>
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-fw black">Chương trước</button>
+        </div>
+        <button class="btn btn-fw black">Chương sau</button>
+
+    </div>
+    <div class="row no-gutter">
+        <div class="col-md-3 push-md-9">
+            <div class="box">
+                <div class="box-header">Filter</div>
+                <div class="p-y">
+                    <div class="nav-active-border left b-{{app.setting.theme.primary}}">
+                        <ul class="list-unstyled m-t-n-sm">
+                            <li class="nav-item">
+                                <a class="nav-link block active" href data-toggle="tab" data-target="#tab-1">Chỉnh sửa trang</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link block" href data-toggle="tab" data-target="#tab-2">Xoá trang</a>
+                            </li>
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+        </div>
+        <div class="col-md-9 pull-md-3">
+            <div class="tab-content pos-rlt">
+                <div class="tab-pane active" id="tab-1">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        @Html.Partial("ChinhSua", item)
+
+                    }
+              </div>
+                </div>
+                <div class="tab-pane" id="tab-2">
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            @Html.Partial("Xoa", item)
+
+                        }
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+        </div>
+    
+            <script>
+                function myFunction23(a,b) {
+
+                    var x = document.getElementById(a);
+
+                    if ('files' in x) {
+                        if (x.files.length == 0) {
+                            document.getElementById(b).disabled = true;
+                        } else {
+                            document.getElementById(b).disabled = false;
+                        }
+                    }
+                }
+    </script>
+       
+</div>
+

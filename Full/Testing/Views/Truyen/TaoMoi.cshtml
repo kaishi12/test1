@@ -1,112 +1,109 @@
-﻿@model Testing.Models.Truyen
+﻿@using Testing.ViewModels
+@model Testing.ViewModels.TruyenModel
 
 @{
     ViewBag.Title = "TaoMoi";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
-
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-tagsinput.css" />
-</head>
-
-<body>
-    @using (Html.BeginForm("TaoMoi", "Truyen", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+<style>
+    .col-sm-3
     {
-        @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h2>Tạo Truyện Mới</h2>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            <div class="col-sm-3 text-right">
-                <label class="control-label" for="Name">Tên Truyện</label>
-                <span class="text-error">(*)</span>
-            </div>
-            <div class="col-sm-8">
-                <input nam class="form-control url-create" data-val="true" data-val-required="'Tên truyện' là trường thông tin bắt buộc" id="Name" name="Name" placeholder="Tên truyện" type="text" value="" _vkenabled="true">
-                <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-3 text-right">
-                <label class="control-label" for="OtherName">Tên Khác</label>
-                <span class="text-error">(*)</span>
-            </div>
-            <div class="col-sm-8">
-                <input class="form-control url-create" data-val="true" required data-val-required="'Tên Khác' là trường thông tin bắt buộc" id="OtherName" name="OtherName" placeholder="Tên Khác" type="text" value="" _vkenabled="true">
-                <span class="field-validation-valid" data-valmsg-for="OtherName" data-valmsg-replace="true"></span>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-3 text-right">
-                <label class="control-label" for="Anh">Ảnh Bìa</label>
-                <span class="text-error">(*)</span>
-                <input class="form-control uploadfile" id="Anh" name="fileupload" type="file" />
-            </div>
-
-            
-
-        </div>
-        <div class="form-group">
-            <div class="col-sm-3 text-right">
-                <label class="control-label" for="MoTa">Mô Tả</label>
-                <span class="text-error">(*)</span>
-            </div>
-            <div class="col-sm-8">
-                <input nam class="form-control url-create" data-val="true" data-val-required="'Mô Tả' là trường thông tin bắt buộc" id="MoTa" name="MoTa" placeholder="Mô Tả" type="text" value="" _vkenabled="true">
-                <span class="field-validation-valid" data-valmsg-for="MoTa" data-valmsg-replace="true"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-3 text-right">
-                <label class="control-label" for="TacGia">Tác Giả</label>
-                <span class="text-error">(*)</span>
-            </div>
-            <div class="col-sm-8">
-                <input nam class="form-control url-create" data-val="true" data-val-required="'Tác Giả' là trường thông tin bắt buộc" id="TacGia" name="TacGia" placeholder="Tên tác giả" type="text" value="" _vkenabled="true">
-                <span class="field-validation-valid" data-valmsg-for="TacGia" data-valmsg-replace="true"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-3 text-right">
-                <label class="control-label typehead" for="TheLoai">Thể Loại</label>
-                <span class="text-error">(*)</span>
-            </div>
-            <div class="col-sm-8">
-                <input nam class="form-control url-create" data-val="true" data-val-required="'Thể Loại' là trường thông tin bắt buộc" id="TheLoai" name="TheLoai" placeholder="Mô Tả" type="text" value="" _vkenabled="true" data-role="tagsinput">
-
-
-                <span class="field-validation-valid" data-valmsg-for="TheLoai" data-valmsg-replace="true"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.DropDownList("MaTrangThai")
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-
-
-
-    </div>
-
+        text-align:center;
     }
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script type="text/javascript" src="~/Content/bootstrap-tagsinput.js"></script>
-    <script type="text/javascript" src="~/Content/typeahead.bundle.js"></script>
-</body>
-<div>
+</style>
+<div class="padding">
+    <div class="m-b col-md-12">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/User/Index">Home</a></li>
+            <li class="breadcrumb-item active">Tạo truyện</li>
+        </ol>
+    </div>
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-divider m-0"></div>
+            <div class="box-body">
+                <div class="form">
 
-    @Html.ActionLink("Back to List", "Index")
-</div>
+                    @using (Html.BeginForm("TaoMoi", "Truyen", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="m-b text-sm">
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="TenTruyen" class="col-sm-3 form-control-label">Tên Truyện<span>(*)</span></label>
+                            <div class="col-sm-7">
+                                <input type="text" ui-jp = "parsley" class="form-control" id="TenTruyen" name="TenTruyen" placeholder="Tên Truyện" required data-parsley-length = "[6, 32]" data-parsley-length-message = "Yêu cầu từ 6-32 kí tự" data-parsley-required-message = "Không được để trống">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="TenKhac" class="col-sm-3 form-control-label">Tên khác<span>(*)</span></label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="TenKhac" name="TenKhac" placeholder="Tên khác" required data-parsley-required-message = "Không được để trống">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="fileupload" class="col-sm-3 form-control-label">Ảnh bìa<span>(*)</span></label>
+                            <div class="col-sm-3">
+                                <div class="form-file">
+                                    <input type="file" id="AnhBia" name="AnhBia" class="form-control">
+                                    <button class="btn white">Chọn Ảnh ...</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword3" class="col-sm-3 form-control-label">Trạng thái</label>
+                            <div class="col-sm-7">
+                                <select class="form-control c-select" id="MaTrangThai" name="MaTrangThai">
+                                    <option selected value="-1" disabled>--Chọn Trạng Thái--</option>
+                                    @foreach (var item in ViewBag.TrangThai)
+                                    {
+                                        <option value="@item.Matrangthai">@item.Tentrangthai</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Mota" class="col-sm-3 form-control-label">Mô tả</label>
+                            <div class="col-sm-7">
+                                <textarea class="form-control" rows="3" id="MoTa" name="MoTa"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="TacGia" class="col-sm-3 form-control-label">Tác Giả</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="TacGia" name="TacGia" placeholder="Tác Giả">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="TheLoai" class="col-sm-3 form-control-label">Thể Loại</label>
+                            <div class="input-group select2-bootstrap-append col-sm-7">
+                                <select id="DSTheLoai" name="DSTheLoai" class="form-control select2" multiple multiple ui-jp="select2" ui-options="{theme: 'bootstrap'}">
+                                    @foreach (var item in ViewBag.TheLoai)
+                                    {
+                                        <option value="@item.MaTheLoai">@item.TenTheLoai</option>
+                                    }
+                                </select>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-select2-open="multi-append">
+                                        <span class="fa fa-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row m-t-md">
+                            <div class="col-sm-7 offset-8">
+                                <button type="submit" class="md-btn md-raised m-b-sm w-xs blue">Tạo</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>       
 
 
+
+        

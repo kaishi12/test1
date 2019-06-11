@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewBag.Title = "CapNhatChuong";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div class="padding">
+    <div class="m-b">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/User/Index">Home</a></li>
+            <li class="breadcrumb-item"><a href="/Truyen/QuanLyTruyenDaTao">Danh sách truyện đã tạo</a></li>
+            <li class="breadcrumb-item"><a href="/Truyen/QuanLyChuong/@ViewBag.MaTruyen">Danh sách chương </a></li>
+            <li class="breadcrumb-item active">Tạo chương mới</li>
+        </ol>
+    </div>
+    <div class="col-md-12">
+        <div class="box">
+
+            <div class="box-body">
+                <div class="form">
+
+                    @using (Html.BeginForm("TaoMoi", "ChuongTruyen", FormMethod.Post, new { @enctype = "multipart/form-data", ui_jp = "parsley" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="m-b text-sm">
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label> Số trang </label>
+                            <div class="row m-b">
+                                <input type="number" id="sotrang" class="form-control col-sm-3">
+                                <div class="col-md-1">
+                                    <button class="md-btn md-fab m-b-sm white" type="button" onclick="myFunction()"><i class="material-icons md-24">&#xe145;</i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group " id="filex">
+                            <table class="table" id="myTable">
+                                <thead>
+                                    <tr>
+
+                                        <th>#</th>
+                                        <th>Trang</th>
+                                        <th>Tên Trang</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <button type="submit" class="md-btn md-raised m-b-sm w-xs blue">Tạo</button>
+                    }
+                    <script>
+                        var x1 = 0;
+                        function myFunction() {
+
+                            var x = document.getElementById("sotrang").value;
+                            if (Number(x) < 0) {
+                                alert("Hello! I am an alert box!!");
+                            }
+                            else
+                                if (x1 > 0) {
+                                    for (var i = 0; i < Number(x1); i++) {
+                                        document.getElementById("myTable").deleteRow(1);
+                                    }
+                                    x1 = 0;
+                                }
+
+                            for (var i = 0; i < Number(x); i++) {
+                                var x2 = x1 + 1;
+                                var tr, td;
+                                var table = document.getElementById("myTable");
+                                var inputfile = document.createElement("input");
+                                inputfile.type = "file";
+                                inputfile.id = "AnhTrang";
+                                inputfile.name = "AnhTrang";
+
+                                var inputthutu = document.createElement("input");
+                                inputthutu.type = "text";
+                                inputthutu.id = "ThuTuTrang";
+                                inputthutu.name = "ThuTuTrang";
+                                inputthutu.value = x2;
+
+                                var inputten = document.createElement("input");
+
+                                inputten.type = "text";
+                                inputten.id = "TenTrang";
+                                inputten.name = "TenTrang";
+                                inputten.value = "trang " + x2;
+                                table.appendChild(tr = document.createElement("tr"));
+                                tr.appendChild(td = document.createElement("td"));
+                                td.appendChild(inputthutu);
+                                tr.appendChild(td = document.createElement("td"));
+                                td.appendChild(inputfile);
+                                tr.appendChild(td = document.createElement("td"));
+                                td.appendChild(inputten);
+                                x1++;
+                            }
+
+                        }
+                    </script>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+

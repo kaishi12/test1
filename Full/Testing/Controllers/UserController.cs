@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -15,9 +16,25 @@ namespace Testing.Controllers
         // GET: User
         public ActionResult Index()
         {
-            return View();
+            if (!CheckSS())
+            {
+                return RedirectToAction("DangNhap", "User");
+            }
+               
+            else
+            {
+               var tk = (NguoiDung)Session["TaiKhoan"];
+                ViewBag.TK = tk.Taikhoan;
+                return View();
+                }
         }
-
+        public bool CheckSS()
+        {
+            if (Session["TaiKhoan"] == null)
+                return false;
+            else
+                return true;
+        }
         public string CreateMD5(string input)
         {
             // Use input string to calculate MD5 hash
@@ -40,6 +57,7 @@ namespace Testing.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult DangKy(DangKyModel model)
         {
             if (ModelState.IsValid)
@@ -109,6 +127,55 @@ namespace Testing.Controllers
         {
             Session["TaiKhoan"] = null;
             return RedirectToAction("Index", "Home");
+        }
+        public ActionResult ThongTinCaNhan(string id)
+        {
+
+            DAO.DAONguoiDung tt = new DAO.DAONguoiDung();
+            
+            
+            return PartialView(tt.GetTTCN(id));
+            
+        }
+        public string ThemAnh(HttpPostedFileBase fileupload)
+        {
+            var filename = Path.GetFileName(fileupload.FileName);
+            var path = Path.Combine(Server.MapPath("~/Truyen"), filename);
+            fileupload.SaveAs(path);
+            return filename;
+        }
+        [HttpPost]
+        public ActionResult ThongTinCaNhan(ThongTinCaNhan tt,HttpPostedFileBase fileupload)
+        {
+            if(fileupload != null)
+            {
+                var Anh = ThemAnh(fileupload);
+                tt.AnhDaiDien = Anh;
+            }
+            DAO.DAONguoiDung tt1 = new DAO.DAONguoiDung();
+            if (tt1.CheckEmail(tt.Email))
+               ModelState.AddModelError("", "Đã có Email này");
+            tt1.UpdateThongTinCaNhan(tt);
+            var nguoi = data.NguoiDungs.SingleOrDefault(m => m.MaNguoiDung == tt.Ma);
+            
+            return RedirectToAction("Index","User");
+        }
+        public ActionResult BaoMat(string id)
+        {
+            DAO.DAONguoiDung tt = new DAO.DAONguoiDung();
+            ViewBag.TK = id;
+            ViewBag.MK = CreateMD5(tt.GetMatKhau(id));
+            
+            return PartialView();
+        }
+        [HttpPost]
+        public ActionResult BaoMat()
+        {
+            DAO.DAONguoiDung tt = new DAO.DAONguoiDung();
+            var tk = Request.Form["TK"];
+            var mk = CreateMD5(Request.Form["MatKhau"]);
+            tt.UpdateMatKhau(tk, mk);
+            return RedirectToAction("Index", "User");
         }
     }
 }

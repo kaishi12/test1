@@ -1,0 +1,33 @@
+﻿
+<div style="text-align:center">
+    @if (ViewBag.chuonghienhanh != ViewBag.ChuongTruyenDau)
+    {
+        <a class="btn active" href="/Home/XemTruyen/?id=@ViewBag.id&chuong=@ViewBag.ChuongTruoc" title="Chương trước">Chương trước</a>
+    }
+    else
+    {
+        <a class="btn disabled" href="#." title="Chương trước">Chương trước</a>
+    }
+    <select name="list_chapters1" id="list_chapters1" onchange="window.location.href=$(this).val()" style="height:50px; padding:10px;">
+        @foreach (var truyen in Model)
+        {
+            if (@truyen.MaProject == ViewBag.id && @truyen.ThuTuChuong == ViewBag.chuonghienhanh)
+            {
+                <option selected value="/Home/XemTruyen/?id=@truyen.MaProject&chuong=@truyen.ThuTuChuong">Chapter @truyen.ThuTuChuong</option>
+            }
+            else
+            {
+                <option value="/Home/XemTruyen/?id=@truyen.MaProject&chuong=@truyen.ThuTuChuong">Chapter @truyen.ThuTuChuong</option>
+            }
+        }
+    </select>
+    @if (ViewBag.ChuongTruyenCuoi != ViewBag.chuonghienhanh)
+    {
+        <a class="btn" href="/Home/XemTruyen/?id=@ViewBag.id&chuong=@ViewBag.ChuongSau" title="Chương sau">Chương sau</a>
+    }
+    else
+    {
+        <a class="btn disabled" href="#." title="Chương sau">Chương sau</a>
+    }
+</div>
+

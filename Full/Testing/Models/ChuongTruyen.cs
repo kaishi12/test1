@@ -24,7 +24,7 @@ namespace Testing.Models
         [StringLength(1000)]
         public string TenChuongTruyen { get; set; }
 
-        public int? ThuTuChuong { get; set; }
+        public int ThuTuChuong { get; set; }
 
         public int LuotXem { get; set; }
 

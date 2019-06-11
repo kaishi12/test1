@@ -1,0 +1,23 @@
+﻿@model Testing.Models.TrangTruyen
+    <div class="col-xs-6 col-sm-4 col-md-3">
+        <div class="box p-a-xs">
+            @using (Html.BeginForm("ChinhSua", "ChuongTruyen", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+            {
+                <input type="hidden" name="MaTrangTruyen" id="MaTrangTruyen" value="@Model.MaTrangTruyen" />
+                <input type="hidden" name="LoaiTrang" id="LoaiTrang" value="@Model.LoaiTrang.TenLoaiTrang" />
+                <input type="hidden" name="Ten" id="Ten" value="@Model.ChuongTruyen.TenChuongTruyen" />
+                @Html.AntiForgeryToken()
+                <a href="#"><img src="~/Truyen/@Model.UrlAnh" alt="" class="img-responsive"></a>
+                <div class="p-a-sm">
+                    <div class="text-ellipsis">trang @Model.ThuTu</div>
+                    <div class="row text-center">
+
+                        <input type="file" id="@Model.TenTrang" name="fileupload" onchange="myFunction23('@Model.TenTrang','@Model.ThuTu')" />
+
+                        <div><button disabled id="@Model.ThuTu" type="submit" class="md-btn md-raised m-b-sm w-xs black" style="margin-top:10px;margin-bottom:2px">Lưu</button></div>
+                    </div>
+                </div>
+            }
+            
+        </div>
+    </div>

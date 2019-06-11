@@ -4,53 +4,54 @@
     ViewBag.Title = "DangKy";
     Layout = "~/Views/Shared/ResAndLogLayout.cshtml";
 }
-
-<div class="form">
-    <a href="/Home/Index" style="background: #000000; color: #ffffff; display: block;  text-decoration: none;
-                                     padding: 15px;  font-size: 20px;  float: left;  width: 100%;  text-align: center;
-                                     cursor: pointer;  transition: .5s ease;">Trang chủ<i class="fa fa-home"></i></a>
-    <ul class="tab-group">
-        <li class="tab-content active">@Html.ActionLink("Đăng Ký", "DangKy", "User")</li>
-        <li>@Html.ActionLink("Đăng Nhập", "DangNhap", "User")</li>
-    </ul>
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        <h2>@Html.ValidationSummary(false, "", new { @class = "text-danger" })</h2>
-        <div id="signup">
-
-            <div class="field-wrap">
-                <label>Tài Khoản<span class="req">*</span> </label>
-                @Html.TextBoxFor(model => model.TaiKhoan, new { @class = "form-control" })
-
-            </div>
-            <div class="field-wrap">
-                <label>
-                    Mật khẩu<span class="req">*</span>
-                </label>
-                @Html.PasswordFor(model => model.MatKhau, new { @class = "form-control" })
-            </div>
-            <div class="field-wrap">
-                <label>
-                    Nhập lại mật khẩu<span class="req">*</span>
-                </label>
-                @Html.PasswordFor(model => model.XacNhanMatKhau, new { @class = "form-control" })
-            </div>
-            <div class="top-row">
-                <div class="field-wrap">
-                    <label>
-                        Email<span>*</span>
-                    </label>
-                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
-                </div>
-                <div class="field-wrap">
-                    <label>
-                        Số Điện Thoại
-                    </label>
-                    @Html.TextBoxFor(model => model.SoDienThoai, new { @class = "form-control" })
-                </div>
-            </div>
-            <button type="submit" class="button button-block">Đăng Ký</button>
+<div class="center-block w-xxl w-auto-xs p-y-md">
+    <div class="navbar">
+        <div class="pull-center">
+            <div ui-include="'../views/blocks/navbar.brand.html'"></div>
         </div>
-    }
-</div> <!-- /form -->
+    </div>
+    <div class="p-a-md box-color r box-shadow-z1 text-color m-a">
+        <div class="m-b text-sm">
+            Đăng Kí tài khoản
+        </div>
+        <div class="form">
+            @using (Html.BeginForm("DangKy", "User", FormMethod.Post,new { ui_jp = "parsley" }))
+            {
+                @Html.AntiForgeryToken()
+            <div class="m-b text-sm">
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            </div>
+            <div class="md-form-group">
+                @Html.TextBoxFor(model => model.TaiKhoan, new { @class = "md-input", type = "text", required = "required", data_parsley_length = "[6, 32]", data_parsley_length_message = "Yêu cầu từ 6-32 kí tự", data_parsley_required_message ="Không được để trống", pattern = "[A-Fa-f0-9]", data_parsley_pattern_message = "Không được chứa kí tự đặc biệt" })
+                
+                <label>Tài khoản</label>
+            </div>
+            
+                <div class="md-form-group">
+                    @Html.TextBoxFor(model => model.Email, new { @class = "md-input", type = "email", required = "required", data_parsley_required_message = "Không được để trống",data_parsley_type_message = "Yêu cầu định dạng email" })
+                    <label>Email</label>
+                </div>
+                <div class="md-form-group">
+                    @Html.TextBoxFor(model => model.SoDienThoai, new { @class = "md-input", required = "required",type="text", data_parsley_type = "number", data_parsley_type_message = "Chỉ được nhập số", data_parsley_required_message = "Không được để trống" })
+                    <label>Số điện thoại</label>
+                </div>
+            
+               
+                <div class="md-form-group">
+                    @Html.PasswordFor(model => model.MatKhau, new { @class = "md-input", required = "required", data_parsley_length = "[6, 32]", data_parsley_length_message = "Yêu cầu từ 6-32 kí tự", data_parsley_required_message = "Không được để trống" })
+                    <label>Mật khẩu</label>
+                </div>
+                <div class="md-form-group">
+                    @Html.PasswordFor(model => model.XacNhanMatKhau, new { @class = "md-input", required = "required", data_parsley_equalto = "#MatKhau", data_parsley_error_message = "Xác nhận mật khẩu không trùng khớp" })
+                    <label>Xác nhận mật khẩu</label>
+                </div>
+
+                <button type="submit" class="btn primary btn-block p-x-md">Đăng Kí</button>
+            }
+        </div>
+    </div>
+    <div class="p-v-lg text-center">
+        <div>Đã Có tài khoản?<a ui-sref="access.signin" href="/User/DangNhap" class="text-primary _600">Đăng Nhập</a></div>
+    </div>
+</div>
+========================

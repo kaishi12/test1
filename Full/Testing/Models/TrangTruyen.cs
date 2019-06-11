@@ -30,7 +30,7 @@ namespace Testing.Models
         public string TenTrang { get; set; }
 
         [Required]
-        public byte[] UrlAnh { get; set; }
+        public string UrlAnh { get; set; }
 
         public bool DaXoa { get; set; }
 

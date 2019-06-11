@@ -1,0 +1,22 @@
+﻿@model Testing.Models.TrangTruyen
+<div class="col-xs-6 col-sm-4 col-md-3">
+    <div class="box p-a-xs">
+        @using (Html.BeginForm("Xoa", "ChuongTruyen", FormMethod.Post))
+        {
+            <input type="hidden" name="MaTrangTruyen" id="MaTrangTruyen" value="@Model.MaTrangTruyen" />
+            <input type="hidden" name="LoaiTrang" id="LoaiTrang" value="@Model.LoaiTrang.TenLoaiTrang" />
+            <input type="hidden" name="Ten" id="Ten" value="@Model.ChuongTruyen.TenChuongTruyen" />
+            @Html.AntiForgeryToken()
+            <a href="#"><img src="~/Truyen/@Model.UrlAnh" alt="" class="img-responsive"></a>
+            <div class="p-a-sm">
+                <div class="text-ellipsis">trang @Model.ThuTu</div>
+                
+
+                    <div><button type="submit" class="md-btn md-raised m-b-sm w-xs black" style="margin-top:10px;margin-bottom:2px" onclick="return confirm('Bạn có chắc muốn xoá?')">Xoá</button></div>
+                
+            </div>
+        }
+
+    </div>
+</div>
+

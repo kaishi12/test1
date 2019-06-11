@@ -1,0 +1,84 @@
+﻿@model Testing.ViewModels.BanDichModel
+
+@{
+    ViewBag.Title = "ThemMoi";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<div class="padding">
+    <div class="m-b col-md-12">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/User/Index">Home</a></li>
+            <li class="breadcrumb-item"><a href="/Truyen/QuanLyTruyenDaTao">Danh Sách Truyện</a></li>
+            <li class="breadcrumb-item active">Thêm bản dịch</li>
+        </ol>
+    </div>
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-divider m-0"></div>
+            <div class="box-body">
+                <div class="form">
+                    @using (Html.BeginForm("ThemMoi", "BanDich", FormMethod.Post))
+                    {
+                        <div class="modal-header">
+                            <h4 class="modal-title">@ViewBag.TenTruyen</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group row">
+                                <label for="TenTruyen" class="col-sm-3 form-control-label">Tên Bản Dịch</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="TenBanDich" name="TenBanDich" placeholder="Tên bản dịch" required>
+                                    <input type="hidden" id="Maproject" name="Maproject" value="@ViewBag.id">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="TenTruyen" class="col-sm-3 form-control-label">Người Quản Lí</label>
+                                <div class="col-sm-9">
+                                    <select id="MaNguoiDung" name="MaNguoiDung" class="form-control select2" ui-jp="select2" ui-options="{theme: 'bootstrap'}">
+                                        @foreach (var item in ViewBag.User)
+                                        {
+                                            <option value="@item.MaUser">@item.TenUser</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-sm-3 form-control-label">Ngôn Ngữ</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control c-select" id="MaNgonNgu" name="MaNgonNgu" >
+                                        <option selected value="-1" disabled>--Chọn ngôn ngữ--</option>
+                 
+                                        @foreach (var item in ViewBag.NgonNgu)
+                                        {
+                                            int i = 0;
+                                            foreach (var item1 in ViewBag.DsBanDich)
+                                            {
+                                                if (item.MaNgonNgu == item1)
+                                                {
+                                                    <option value="@item.MaNgonNgu" disabled>@item.TenNgonNgu</option>
+                                                    i++;
+
+                                                }
+                                            }
+                                            if (i == 0)
+                                            {
+                                                    <option value="@item.MaNgonNgu">@item.TenNgonNgu</option>
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="md-btn md-raised m-b-sm w-xs blue">Lưu</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

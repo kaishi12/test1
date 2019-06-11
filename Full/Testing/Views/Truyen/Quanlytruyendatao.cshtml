@@ -1,103 +1,109 @@
-﻿@using Testing.Models
+﻿@using Testing.ViewModels
 @using PagedList.Mvc;
-@model PagedList.PagedList<Testing.Models.Truyen>
+@model PagedList.PagedList<TruyenDaTao>
 @{
-    ViewBag.Title = "QuanLyTruyenDaTao";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 
-<h2>Quanlytruyendatao</h2>
-<br />
-<table class="table" border="1">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.First().MaNguoiDung)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.First().TrangThai)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.First().AnhBia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.First().TenProject)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.First().TenKhac)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.First().MoTa)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.First().NgayTao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.First().TacGia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.First().DaXoa)
-        </th>
-        <th></th>
-        <th></th>
-    </tr>
+<div class="padding">
+    <div class="m-b">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/User/Index">Index</a></li>
+            <li class="breadcrumb-item active">Danh sách truyện đã tạo</li>
+        </ol>
+    </div>
+    <div class="box">
+        <div class="box-header">
+            <h2>DataTables</h2>
+        </div>
+        @using (Html.BeginForm("QuanLyTruyenDaTao", "Truyen", FormMethod.Post))
+        {
+            <div class="col-md-2" id="buttonxoa">
+                <button type="submit" value="Delete" class="btn btn-fw danger" onclick="return confirm('Bạn có chắc muốn xoá?')"><i class="fa fa-trash-o"></i> Delete</button>
+            </div>
+            <div class="table-responsive">
+                <table ui-jp="dataTable" id="datatable" class="table table-striped b-t b-b">
+                    <thead>
+                        <tr>
+                            <td><input type="checkbox" id="checkBoxAll" class="custom-checkbox" /></td>
+                            <th style="width:20%">Ảnh Bìa</th>
+                            <th style="width:25%">Tên Truyện</th>
+                            <th style="width:15%">Tác Giả</th>
+                            <th style="width:15%">Trạng Thái</th>
+                            <th style="width:25%">Ngày Tạo</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="ID" value="@item.MaProject" class="custom-checkbox chkCheckBoxId" id="check-box" />
+                                </td>
+                                <td class="center">
+                                    <a href="/Truyen/QuanLyChuong/@item.MaProject">
+                                        <span>
+                                            <img src="~/Truyen/@item.AnhBia" style="width:250px; height:200px;" />
+                                        </span>
+                                    </a>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaNguoiDung)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TrangThai)
-        </td>
-        <td>
-            <img src="~/Truyen/@item.AnhBia" style="width:100px; height:100px;"/>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenProject)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenKhac)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MoTa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgayTao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TacGia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DaXoa)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MaProject }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MaProject }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MaProject })
-        </td>
-        <td>
-           <i class="fa fa-pencil-square-o"></i> @Html.ActionLink("Quản lý chương","QuanLyChuong",new { id=@item.MaProject})
-        </td>
-    </tr>
+                                </td>
+                                <td class="center">
+                                    <a href="/Truyen/QuanLyChuong/@item.MaProject">
+                                        <span>
+                                            @Html.DisplayFor(modelItem => item.TenTruyen)
+                                        </span>
+                                    </a>
+                                </td>
+                                <td class="center">
+                                    @Html.DisplayFor(modelItem => item.TacGia)
+                                </td>
+                                <td class="center">
+                                    @Html.DisplayFor(modelItem => item.TrangThai)
+                                </td>
+                                <td class="center">
+                                    @Html.DisplayFor(modelItem => item.NgayTao)
+                                </td>
+                                <td class="center">
+                                    <a href="~/Truyen/CapNhatTruyen/@item.MaProject" class="rep1"> <i class="fa fa-edit" title="Cập nhật truyện"></i></a>
+                                    <a href="~/BanDich/ThemMoi/@item.MaProject" class="rep1"> <i class="fa fa-edit" title="Cập nhật truyện"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+
+</div>
+@section scripts
+{
+    <script>
+        jQuery(document).ready(function ($) {
+           
+            $('#checkBoxAll').click(function () {
+        if ($(this).is(":checked")) {
+                    $(".chkCheckBoxId").prop("checked", true)
+                }
+                else {
+                    $(".chkCheckBoxId").prop("checked", false)
+                }
+    });
+});
+    </script>
+    <script>
+        $('#modal-container').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var url = button.attr("href");
+            var modal = $(this);
+
+            // note that this will replace the content of modal-content ever time the modal is opened
+            modal.find('.modal-content').load(url);
+        });
+    </script>
 }
 
-</table>
-<div style="text-align:center">
-    @* Tạo liên kết các trang *@
-    <div class="MenuTrang">
-        @Html.PagedListPager(Model, page => Url.Action("QuanLyTruyenDaTao", new { page = page }))
-    </div>
-    <style>
-        .MenuTrang {
-            width: 100%;
-            text-align: center;
-            background-color: #3dc667;
-            display: inline-block;
-        }
-
-            .MenuTrang li {
-                display: inline;
-            }
-    </style>
-</div>
 

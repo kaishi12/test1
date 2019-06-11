@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Testing.ViewModels.XemTruyen>
+
+@{
+    ViewBag.Title = "XemTruyen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .img-1 {
+        border: 5px solid #232323;
+        margin: 30px;
+        vertical-align: middle;
+    }
+    .list_img {
+        text-align: center;
+    }
+    .position-center-center {
+        height: 50px;
+        line-height: 30px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border: 1px solid #CDCDCD;
+        background-color: #F5F5F5;
+        margin-bottom: 5px;
+        clear: both;
+    }
+    .headlink {
+        height: 50px;
+        line-height: 30px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border: 1px solid #CDCDCD;
+        background-color: #F5F5F5;
+        margin-bottom: 5px;
+        clear: both;
+    }
+    .container {
+        height: 100px;
+        background-color: #F5F5F5;
+        border: 1px solid #CDCDCD;
+        margin-bottom: 5px;
+    }
+</style>
+
+<section class="sub-bnr" data-stellar-background-ratio="0.5">
+    <div class="position-center-center">
+        <div class="container">
+            <h4>@ViewBag.TenTruyen</h4>
+            <ol class="breadcrumb">
+                <li><a href="/Home/Index">Home</a></li>
+                <li><a href="/Home/ThongTinTruyen/@ViewBag.MaTruyen">@ViewBag.TenTruyen</a></li>
+                <li class="active">@ViewBag.TenTruyen chap @ViewBag.SoChuong</li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- Content -->
+
+    <!-- Popular Products -->
+    <section class="shop-page padding-top-100 padding-bottom-100">
+        <!-- Loại trang -->
+        <div class="headlink">
+            @Html.Action("ChonTruyen", "Home", new { id = ViewBag.MaTruyen, chuong = ViewBag.SoChuong })
+        </div>
+        
+        <div class="list_img">
+            @foreach (var truyen in Model)
+            {
+                <img class="img-1" src="~/Truyen/@truyen.UrlAnh">
+            }
+        </div>
+    </section>
+

@@ -1,0 +1,60 @@
+﻿@using Testing.Models
+@using PagedList.Mvc;
+@model PagedList.PagedList<BanDich>
+
+@{
+    ViewBag.Title = "QuanLy";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<h2>QuanLy</h2>
+<div class="padding">
+    <div class="m-b">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/User/Index">Index</a></li>
+            <li class="breadcrumb-item active">Bản dịch đang quản lí</li>
+        </ol>
+    </div>
+    <div class="box">
+        <div class="box-header">
+           
+        </div>
+        <div class="table-responsive">
+        <table ui-jp="dataTable" class="table table-striped b-t b-b">
+            <thead>
+                <tr>
+                    <th style="width:30%">Tên Truyện</th>
+                    <th style="width:15%">Ngôn Ngữ</th>
+                    <th style="width:15%">Số Chương truyện</th>
+                    <th style="width:25%">Số chương có bản dịch</th>
+                    <th style="width:15%">Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="center">
+                            <a href="/BanDich/DanhSachChuong/@item.MaProject?name=@item.TenBanDich">
+                                @item.Truyen.TenProject
+                                </a>
+                        </td>
+                        <td class="center">
+                            @item.NgonNgu.TenNgonNgu
+                        </td>
+                        <td class="center">
+                            @item.TenBanDich
+                        </td>
+                        <td class="center">
+                            @item.TenBanDich
+                        </td>
+                        <td class="center">
+                            @item.Truyen.TrangThai1.TenTrangThai
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+    </div>

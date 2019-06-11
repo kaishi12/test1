@@ -1,0 +1,67 @@
+﻿@using Testing.ViewModels
+@using PagedList.Mvc;
+@model IEnumerable<ChuongTruyenDaTao>
+@{
+    /**/
+
+    ViewBag.Title = "@ViewBag.TenTruyen";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div class="padding">
+    <div class="m-b">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/User/Index">Home</a></li>
+            <li class="breadcrumb-item"><a href="/BanDich/QuanLy">Danh sách bản dịch đang quản lí</a></li>
+            <li class="breadcrumb-item active">Danh sách chương</li>
+        </ol>
+    </div>
+    <div class="box">
+            <div class="table-responsive">
+                <table ui-jp="dataTable" class="table table-striped b-t b-b">
+                    <thead>
+                        <tr>
+                            
+                            <th style="width:30%">Tên Chương</th>
+                            <th style="width:15%">Thời gian</th>
+                            <th style="width:10%">Lượt xem</th>
+                            <th style="width:20%">Loại Trang</th>
+                            <th style="width:10%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                              
+                                <td class="center">
+                                    
+                                        <span>
+                                            @Html.DisplayFor(modelItem => item.TenChuong)
+                                        </span>
+                                   
+                                </td>
+                                <td class="center">
+                                    @Html.DisplayFor(modelItem => item.Thoigian)
+                                </td>
+                                <td class="center">
+                                    @Html.DisplayFor(modelItem => item.LuotXem)
+                                </td>
+                                <td class="center">
+                                    @foreach (var item1 in ViewBag.LoaiTrang)
+                                    {
+                                        @item1.TenLoaiTrang  <br />
+                                    }
+                                </td>
+                                <td>
+                                    <a href="/BanDich/CapNhatChuong/?id=@item.MaChuong&name=@ViewBag.Tenbandich" class="rep1"> <i class="fa fa-edit" title="Cập nhật trang"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        
+    </div>
+
+</div>
