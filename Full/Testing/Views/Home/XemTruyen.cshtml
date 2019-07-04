@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Testing.ViewModels.XemTruyen>
+﻿@model IEnumerable<Testing.ViewModels.TrangTruyenModel>
 
 @{
     ViewBag.Title = "XemTruyen";
@@ -49,7 +49,7 @@
             <ol class="breadcrumb">
                 <li><a href="/Home/Index">Home</a></li>
                 <li><a href="/Home/ThongTinTruyen/@ViewBag.MaTruyen">@ViewBag.TenTruyen</a></li>
-                <li class="active">@ViewBag.TenTruyen chap @ViewBag.SoChuong</li>
+                <li class="active">@ViewBag.TenTruyen</li>
             </ol>
         </div>
     </div>
@@ -64,13 +64,13 @@
     <section class="shop-page padding-top-100 padding-bottom-100">
         <!-- Loại trang -->
         <div class="headlink">
-            @Html.Action("ChonTruyen", "Home", new { id = ViewBag.MaTruyen, chuong = ViewBag.SoChuong })
+            @Html.Action("ChonTruyen", "Home", new { id = ViewBag.MaTruyen, chuong = ViewBag.MaChuong,mabandich = ViewBag.Mabandich })
         </div>
         
         <div class="list_img">
             @foreach (var truyen in Model)
             {
-                <img class="img-1" src="~/Truyen/@truyen.UrlAnh">
+                <img class="img-1" src="~/Truyen/@truyen.Anh">
             }
         </div>
     </section>

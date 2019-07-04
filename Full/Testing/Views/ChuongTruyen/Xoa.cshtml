@@ -1,5 +1,5 @@
 ﻿@model Testing.Models.TrangTruyen
-<div class="col-xs-6 col-sm-4 col-md-3">
+<div class="col-xs-6 col-sm-4 col-md-3" style="padding-left:12px;padding-right:12px">
     <div class="box p-a-xs">
         @using (Html.BeginForm("Xoa", "ChuongTruyen", FormMethod.Post))
         {
@@ -7,7 +7,7 @@
             <input type="hidden" name="LoaiTrang" id="LoaiTrang" value="@Model.LoaiTrang.TenLoaiTrang" />
             <input type="hidden" name="Ten" id="Ten" value="@Model.ChuongTruyen.TenChuongTruyen" />
             @Html.AntiForgeryToken()
-            <a href="#"><img src="~/Truyen/@Model.UrlAnh" alt="" class="img-responsive"></a>
+            <a href="#"><img src="~/Truyen/@Model.UrlAnh" alt="" class="img-responsive" style="height:304px"></a>
             <div class="p-a-sm">
                 <div class="text-ellipsis">trang @Model.ThuTu</div>
                 

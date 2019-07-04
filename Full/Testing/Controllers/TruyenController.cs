@@ -46,6 +46,8 @@ namespace Testing.Controllers
             else
             {
                 DaoTruyen truyen = new DaoTruyen();
+                DAO.DaoBanDich bandich = new DAO.DaoBanDich();
+                ViewBag.NgonNgu = bandich.GetNgonNgu();
                 ViewBag.TheLoai = truyen.LayTheLoai(); 
                 ViewBag.TrangThai = truyen.LayTrangThai();
                 return View();
@@ -64,7 +66,7 @@ namespace Testing.Controllers
                 NguoiDung nguoi = (NguoiDung)Session["TaiKhoan"];
                 var truyen1 = new Truyen();
                 truyen.AnhBia = ThemAnh(AnhBia);
-                int maproject = truyen2.Insert(truyen2.Create(truyen, nguoi));
+                int maproject = truyen2.ThemVao(truyen2.Tao(truyen, nguoi));
                 string theloais = Request.Form["DSTheLoai"];
                 string[] DSTheLoai = theloais.Split(new char[] { ',' });
 
@@ -82,7 +84,7 @@ namespace Testing.Controllers
             return View(truyen);
 
         }
-        public ActionResult QuanLyTruyenDaTao(int ? page)
+        public ActionResult QuanLyTruyenDaTao()
         {
             if (!CheckSS())
                 return RedirectToAction("DangNhap", "User");
@@ -99,13 +101,12 @@ namespace Testing.Controllers
                     truyen1.TenTruyen = truyen.TenProject;
                     truyen1.TacGia = truyen.TacGia;
                     truyen1.TrangThai = truyen.TrangThai1.TenTrangThai;
-                    truyen1.NgayTao =  truyen.NgayTao;
+                    truyen1.NgayTao = truyen.NgayTao.ToShortDateString();
                     truyens.Add(truyen1);
 
                 }
-                int pageNum = (page ?? 1);
-                int pageSize = 7;
-                return View(truyens.ToPagedList(pageNum, pageSize));
+               
+                return View(truyens);
             }
         }
         [HttpPost]
@@ -136,23 +137,8 @@ namespace Testing.Controllers
                 //int pageSize = 7;
                 DAO.DaoChuongTruyen daoChuongTruyen = new DAO.DaoChuongTruyen();
                 ViewBag.LoaiTrang = daoChuongTruyen.GetLoaiTrang();
-                var listtruyen = data.ChuongTruyens.Where(m => m.MaProject == id && m.DaXoa == false).OrderByDescending(a => a.ThuTuChuong).ToList();
-                List<ChuongTruyenDaTao> chuongtruyens = new List<ChuongTruyenDaTao>();
-               
-                foreach (var truyen in listtruyen)
-                {
-                    ChuongTruyenDaTao chuongtruyen1 = new ChuongTruyenDaTao();
-                    chuongtruyen1.TenChuong = truyen.TenChuongTruyen;
-                    DateTime Tgcn = truyen.ThoiGianCapNhat;
-                    var month = new DateDifference(Tgcn, DateTime.Now);
-                    
-                    chuongtruyen1.Thoigian = month.ToString();
-                    chuongtruyen1.LuotXem = truyen.LuotXem;
-                    chuongtruyen1.MaChuong = truyen.MaChuongTruyen;
-                    chuongtruyens.Add(chuongtruyen1);
-                    
-                }
-                return View(chuongtruyens);
+                var list = daoChuongTruyen.LayListChuongTruyen(id);
+                return View(list);
             }
         }
         [HttpPost]
@@ -182,7 +168,7 @@ namespace Testing.Controllers
                 ViewBag.TheLoai = truyen.LayTheLoai();
                 ViewBag.TrangThai = truyen.LayTrangThai();
                 
-                return View(truyen.GetTruyenModel(id, ct.GetTheLoai(id)));
+                return View(truyen.LayTruyenModel(id, ct.GetTheLoai(id)));
             }
            
         }
@@ -201,7 +187,7 @@ namespace Testing.Controllers
                 }
                
                 int maproject = -1;
-                maproject = truyen2.Update(id, model);
+                maproject = truyen2.CapNhat(id, model);
                 if(maproject == -1)
                 {
                     ModelState.AddModelError("", "Chỉnh sửa thất bại");

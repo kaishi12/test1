@@ -14,13 +14,13 @@ namespace Testing.DAO
         {
             data = new Model1();
         }
-        public int Insert(Truyen truyen)
+        public int ThemVao(Truyen truyen)
         {
             data.Truyens.Add(truyen);
             data.SaveChanges();
             return truyen.MaProject;
         }
-        public Truyen Create(TruyenModel truyen,NguoiDung nguoi)
+        public Truyen Tao(TruyenModel truyen,NguoiDung nguoi)
         {
             Truyen truyendangtao = new Truyen();
 
@@ -59,7 +59,8 @@ namespace Testing.DAO
                         } ).ToList();
             return list;
         }
-        public TruyenModel GetTruyenModel(int id,int[] theloai)
+        
+        public TruyenModel LayTruyenModel(int id,int[] theloai)
         {
             Truyen truyen = data.Truyens.SingleOrDefault(m => m.MaProject == id);
             TruyenModel truyen1 = new TruyenModel();
@@ -72,7 +73,7 @@ namespace Testing.DAO
             truyen1.DStheloai = theloai;
             return truyen1;
         }
-        public int Update(int id,TruyenModel truyen)
+        public int CapNhat(int id,TruyenModel truyen)
         {
             Truyen truyendangupdate = data.Truyens.SingleOrDefault(m => m.MaProject == id);
             truyendangupdate.MoTa = truyen.MoTa;
@@ -83,6 +84,15 @@ namespace Testing.DAO
             truyendangupdate.AnhBia = truyen.AnhBia;
             data.SaveChanges();
             return truyendangupdate.MaProject;
+        }
+        public BanDichModel LayBanDichModel(int manguoidung,int maproject,int mangonngu)
+        {
+            BanDichModel bandich = new BanDichModel();
+           
+            bandich.MaNgonNgu = mangonngu;
+            bandich.MaNguoiDung = manguoidung;
+            bandich.MaProject = maproject;
+            return bandich;
         }
     }
 }

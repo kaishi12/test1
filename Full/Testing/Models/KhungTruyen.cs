@@ -12,7 +12,7 @@ namespace Testing.Models
         [Key]
         public int MaText { get; set; }
 
-        public int MaTrangTruyen { get; set; }
+        public int MaToaDo { get; set; }
 
         public int MaNguoiDung { get; set; }
 
@@ -27,16 +27,10 @@ namespace Testing.Models
 
         public int DoNang { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string ToaDo1 { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        public string ToaDo2 { get; set; }
+       
 
         public virtual NguoiDung NguoiDung { get; set; }
 
-        public virtual TrangTruyen TrangTruyen { get; set; }
+        public virtual ToaDo ToaDo { get; set; }
     }
 }

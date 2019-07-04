@@ -1,0 +1,78 @@
+﻿@using Testing.ViewModels
+@model IEnumerable<TruyenDaTao>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<style>
+    .mr10 {
+        margin-right: 20px;
+    }
+</style>
+<div class="padding">
+    <div class="m-b">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/User/Index">Index</a></li>
+            <li class="breadcrumb-item active">Danh sách truyện</li>
+        </ol>
+    </div>
+    <div class="box">
+        <div class="box-header">
+            <h2>DataTables</h2>
+        </div>
+        
+            <div class="table-responsive">
+                <table ui-jp="dataTable" id="datatable" class="table table-striped b-t b-b">
+                    <thead>
+                        <tr>
+                           
+                            <th style="width:10%">Ảnh Bìa</th>
+                            <th style="width:25%">Tên Truyện</th>
+                            <th style="width:15%">Tác Giả</th>
+                            <th style="width:15%">Trạng Thái</th>
+                            <th style="width:15%">Ngày Tạo</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="center">
+                                    <a href="/DongGop/DanhSachChuong/@item.MaProject">
+                                        <span>
+                                            <img src="~/Truyen/@item.AnhBia" style="width:140px; height:120px;" />
+                                        </span>
+                                    </a>
+
+                                </td>
+                                <td class="center">
+                                    <a href="/Truyen/QuanLyChuong/@item.MaProject">
+                                        <span>
+                                            @Html.DisplayFor(modelItem => item.TenTruyen)
+                                        </span>
+                                    </a>
+                                </td>
+                                <td class="center">
+                                    @Html.DisplayFor(modelItem => item.TacGia)
+                                </td>
+                                <td class="center">
+                                    @Html.DisplayFor(modelItem => item.TrangThai)
+                                </td>
+                                <td class="center">
+                                    @Html.DisplayFor(modelItem => item.NgayTao)
+                                </td>
+                                
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        
+    </div>
+
+</div>
+
+
+
+

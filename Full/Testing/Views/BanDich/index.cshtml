@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Testing.ViewModels.TrangTruyenModel>
+@{
+    ViewBag.Title = "index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<div class="m-b">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/User/Index">Home</a></li>
+        <li class="breadcrumb-item"><a href="/Truyen/QuanLyTruyenDaTao">Danh sách truyện đã tạo</a></li>
+        <li class="breadcrumb-item"><a href="/Truyen/QuanLyChuong/@ViewBag.MaTruyen">Danh sách chương </a></li>
+        <li class="breadcrumb-item active">Chỉnh sửa</li>
+    </ol>
+</div>
+<div class="padding">
+    <div class="row">
+        <div class="col-md-3 push-md-9">
+            <div class="box">
+                <div class="box-header">Filter</div>
+                <div class="box-body">
+                    <ul class="list-unstyled m-t-n-sm">
+                        <li class="checkbox">
+                            <label class="ui-check">
+                                <input type="checkbox" checked><i></i> Nature
+                            </label>
+                        </li>
+                        <li class="checkbox">
+                            <label class="ui-check">
+                                <input type="checkbox" checked><i></i> Food and Drink
+                            </label>
+                        </li>
+                        <li class="checkbox">
+                            <label class="ui-check">
+                                <input type="checkbox"><i></i> Model Released
+                            </label>
+                        </li>
+                        <li class="checkbox">
+                            <label class="ui-check">
+                                <input type="checkbox"><i></i> Animals/Wildlife
+                            </label>
+                        </li>
+                        <li class="checkbox">
+                            <label class="ui-check">
+                                <input type="checkbox"><i></i> Abstract
+                            </label>
+                        </li>
+                        <li class="checkbox">
+                            <label class="ui-check">
+                                <input type="checkbox"><i></i> Beauty/Fashion
+                            </label>
+                        </li>
+                        <li class="checkbox">
+                            <label class="ui-check">
+                                <input type="checkbox"><i></i> Business
+                            </label>
+                        </li>
+                    </ul>
+                    <div class="line line-dashed b-b m-b"></div>
+                    <ul class="list-unstyled">
+                        <li class="radio">
+                            <label class="ui-check">
+                                <input type="radio" name="filter" checked><i></i> Today
+                            </label>
+                        </li>
+                        <li class="radio">
+                            <label class="ui-check">
+                                <input type="radio" name="filter"><i></i> Last Week
+                            </label>
+                        </li>
+                        <li class="radio">
+                            <label class="ui-check">
+                                <input type="radio" name="filter"><i></i> Last Month
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 pull-md-3">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-xs-10 col-sm-7 col-md-6">
+                        <div class="box p-a-xs">
+                            <a href="#"><img src="~/Truyen/@item.Anh" alt="" class="img-responsive"></a>
+                            <div class="p-a-sm">
+                                <div class="text-ellipsis">@item.TenTrang</div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+

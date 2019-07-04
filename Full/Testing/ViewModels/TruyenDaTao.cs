@@ -18,6 +18,6 @@ namespace Testing.ViewModels
         [Display(Name = "Tác Giả")]
         public string TacGia { get; set; }
         [Display(Name = "Ngày Tạo")]
-        public DateTime NgayTao { get; set; }
+        public string NgayTao { get; set; }
     }
 }

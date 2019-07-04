@@ -1,29 +1,29 @@
 ﻿
 <div style="text-align:center">
-    @if (ViewBag.chuonghienhanh != ViewBag.ChuongTruyenDau)
+    @if (ViewBag.chuongtruoc != null)
     {
-        <a class="btn active" href="/Home/XemTruyen/?id=@ViewBag.id&chuong=@ViewBag.ChuongTruoc" title="Chương trước">Chương trước</a>
+        <a class="btn active" href="/Home/XemTruyen/?id=@ViewBag.chuongtruoc.MaProject&chuong=@ViewBag.chuongtruoc.MaChuongTruyen&mabandich=@ViewBag.Mabandich" title="Chương trước">Chương trước</a>
     }
     else
     {
         <a class="btn disabled" href="#." title="Chương trước">Chương trước</a>
     }
-    <select name="list_chapters1" id="list_chapters1" onchange="window.location.href=$(this).val()" style="height:50px; padding:10px;">
-        @foreach (var truyen in Model)
-        {
-            if (@truyen.MaProject == ViewBag.id && @truyen.ThuTuChuong == ViewBag.chuonghienhanh)
+        <select name="list_chapters1" id="list_chapters1" onchange="window.location.href=$(this).val()" style="height:50px; padding:10px;">
+            @foreach (var truyen in ViewBag.ListChuong)
             {
-                <option selected value="/Home/XemTruyen/?id=@truyen.MaProject&chuong=@truyen.ThuTuChuong">Chapter @truyen.ThuTuChuong</option>
+                if (ViewBag.MaChuong == truyen.MaChuongTruyen)
+                {
+                    <option selected value="/Home/XemTruyen/?id=@truyen.MaProject&chuong=@truyen.MaChuongTruyen&mabandich=@ViewBag.Mabandich"> @truyen.TenChuongTruyen</option>
+                }
+                else
+                {
+                    <option value="/Home/XemTruyen/?id=@truyen.MaProject&chuong=@truyen.MaChuongTruyen&mabandich=@ViewBag.Mabandich">@truyen.TenChuongTruyen</option>
+                }
             }
-            else
-            {
-                <option value="/Home/XemTruyen/?id=@truyen.MaProject&chuong=@truyen.ThuTuChuong">Chapter @truyen.ThuTuChuong</option>
-            }
-        }
-    </select>
-    @if (ViewBag.ChuongTruyenCuoi != ViewBag.chuonghienhanh)
+        </select>
+    @if (ViewBag.chuongsau != null)
     {
-        <a class="btn" href="/Home/XemTruyen/?id=@ViewBag.id&chuong=@ViewBag.ChuongSau" title="Chương sau">Chương sau</a>
+        <a class="btn" href="/Home/XemTruyen/?id=@ViewBag.chuongsau.MaProject&chuong=@ViewBag.chuongsau.MaChuongTruyen&mabandich=@ViewBag.Mabandich" title="Chương sau">Chương sau</a>
     }
     else
     {

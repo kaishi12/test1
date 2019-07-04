@@ -59,8 +59,7 @@ namespace Testing.DAO
         }
         public int check(int machuongtruyen,int id)
         {
-
-
+            
            var check = (from nguoi in data.NguoiDungs
                          join truyen in data.Truyens on nguoi.MaNguoiDung equals truyen.MaNguoiDung
                          where nguoi.MaNguoiDung == id
@@ -88,6 +87,180 @@ namespace Testing.DAO
             var truyen = data.ChuongTruyens.SingleOrDefault(m => m.MaChuongTruyen == machuong);
             var matruyen = truyen.MaProject;
             return matruyen;
+        }
+        public ChuongTruyen Laychuongtruoc(int maproject,int machuong)
+        {
+            var listchuongtruyen = data.ChuongTruyens.Where(m => m.MaProject == maproject).OrderBy(m => m.ThuTuChuong).ToList();
+            var chuongtruyen = new ChuongTruyen();
+            
+            int i = 0;
+            foreach (var item in listchuongtruyen)
+            {
+                if(item.MaChuongTruyen == machuong)
+                {
+                    if(i==0)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        chuongtruyen = listchuongtruyen[i-1];
+                        return chuongtruyen;
+                    }
+
+                    
+                }
+                i++;
+            }
+            return null;
+            
+        }
+        public ChuongTruyen LayChuongTruocTrongListBanDich(int machuong,List<ChuongTruyen> chuong)
+        {
+            var chuongtruyen = new ChuongTruyen();
+
+            int i = 0;
+            foreach (var item in chuong)
+            {
+                if (item.MaChuongTruyen == machuong)
+                {
+                    if (i == 0)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        chuongtruyen = chuong[i - 1];
+                        return chuongtruyen;
+                    }
+
+
+                }
+                i++;
+            }
+            return null;
+
+        }
+        public ChuongTruyen Laychuongsau(int maproject, int machuong)
+        {
+            var listchuongtruyen = data.ChuongTruyens.Where(m => m.MaProject == maproject).OrderBy(m => m.ThuTuChuong).ToList();
+            var chuongtruyen = new ChuongTruyen();
+            var count = listchuongtruyen.Count();
+            int i = 0;
+            foreach (var item in listchuongtruyen)
+            {
+                if (item.MaChuongTruyen == machuong)
+                {
+
+                    if (i != count-1)
+                    {
+                        chuongtruyen = listchuongtruyen[i+1];
+                        return chuongtruyen;
+                    }
+
+                }
+                i++;
+            }
+            return null;
+        }
+        public ChuongTruyen LayChuongSauTrongListBanDich(int machuong, List<ChuongTruyen> chuong)
+        {
+            var chuongtruyen = new ChuongTruyen();
+            var count = chuong.Count();
+            int i = 0;
+            foreach (var item in chuong)
+            {
+                if (item.MaChuongTruyen == machuong)
+                {
+
+                    if (i != count - 1)
+                    {
+                        chuongtruyen = chuong[i + 1];
+                        return chuongtruyen;
+                    }
+
+                }
+                i++;
+            }
+            return null;
+
+        }
+        public List<ChuongTruyenDaTao> LayListChuongTruyen(int maproject)
+        {
+            var listtruyen = data.ChuongTruyens.Where(m => m.MaProject == maproject && m.DaXoa == false).OrderByDescending(a => a.ThuTuChuong).ToList();
+            List<ChuongTruyenDaTao> chuongtruyens = new List<ChuongTruyenDaTao>();
+
+            foreach (var truyen in listtruyen)
+            {
+                ChuongTruyenDaTao chuongtruyen1 = new ChuongTruyenDaTao();
+                chuongtruyen1.TenChuong = truyen.TenChuongTruyen;
+                DateTime Tgcn = truyen.ThoiGianCapNhat;
+                var month = new DateDifference(Tgcn, DateTime.Now);
+
+                chuongtruyen1.Thoigian = month.ToString();
+                chuongtruyen1.LuotXem = truyen.LuotXem;
+                chuongtruyen1.MaChuong = truyen.MaChuongTruyen;
+                chuongtruyens.Add(chuongtruyen1);
+
+            }
+            return chuongtruyens;
+        }
+        //public List<ChuongTruyen> LayListChuongTheoBanDich(int maproject,int mabandich)
+        //{
+        //    var listraw = data.ChuongTruyens.Where(m => m.MaProject == maproject).OrderBy(m=>m.ThuTuChuong).ToList();
+        //    var listdich = new List<ChuongTruyen>();
+           
+            
+        //    foreach(var item in listraw)
+        //    {
+        //        var listtrang = (from trang in data.TrangTruyens
+        //                         join ctbd in data.ChiTietBanDichs
+        //                         on trang.MaTrangTruyen equals ctbd.MaTrangTruyen
+        //                         where trang.MaChuongTruyen == item.MaChuongTruyen && ctbd.MaBanDich == mabandich
+        //                         select trang);
+        //        if(listtrang.Count() >0)
+        //        {
+                    
+        //            listdich.Add(item);
+        //        }
+        //    }
+        //    if (listdich.Count != 0)
+        //        return listdich;
+        //    else
+        //    return null;
+        //}
+        public List<TrangTruyen> ListTrangCvaR(int machuong)
+        {
+            var listc = data.TrangTruyens.Where(m => m.MaChuongTruyen == machuong && m.MaLoaiTrang == 4).ToList();
+            var listr = data.TrangTruyens.Where(m => m.MaChuongTruyen == machuong && m.MaLoaiTrang == 2).ToList();
+            var list = new List<TrangTruyen>();
+            var count = listc.Count() - 1;
+            for(int i = 0;i<listr.Count();i++)
+            {
+                int c = 0;
+                TrangTruyen trang = new TrangTruyen();
+                if (listc != null)
+                {
+                    foreach (var item in listc)
+                    {
+
+                        if (listr[i].ThuTu == item.ThuTu)
+                        {
+                            list.Add(item);
+                            c++;
+
+                            trang = item;
+                        }
+                    }
+                    listc.Remove(trang);
+                }
+                if (c == 0)
+                {
+                    list.Add(listr[i]);
+                }
+
+            }
+            return list;
         }
     }
 }

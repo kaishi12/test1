@@ -82,59 +82,64 @@
             <li class="breadcrumb-item active">Chỉnh sửa</li>
         </ol>
     </div>
-    <div class="row m-b text-center">
-
-        <div class="col-sm-3">
-            <select class="form-control c-select" id="MaLoaiTrang" name="MaLoaiTrang">
-                <option id="MaLoaiTrang" name="MaLoaiTrang" selected value="-1">--Chọn Loại Trang--</option>
-
-            </select>
-        </div>
-        <div class="col-sm-2">
-            <button class="btn btn-fw black">Chương trước</button>
-        </div>
-        <button class="btn btn-fw black">Chương sau</button>
-
-    </div>
+    
     <div class="row no-gutter">
-        <div class="col-md-3 push-md-9">
+        <div class="col-sm-3 col-lg-2" style="padding-left:12px;padding-right:12px">
             <div class="box">
                 <div class="box-header">Filter</div>
                 <div class="p-y">
                     <div class="nav-active-border left b-{{app.setting.theme.primary}}">
                         <ul class="list-unstyled m-t-n-sm">
                             <li class="nav-item">
-                                <a class="nav-link block active" href data-toggle="tab" data-target="#tab-1">Chỉnh sửa trang</a>
+                                <a class="nav-link block active" href data-toggle="tab" data-target="#tab-1">Cập nhật chương</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link block" href data-toggle="tab" data-target="#tab-2">Xoá trang</a>
+                                <a class="nav-link block" href data-toggle="tab" data-target="#tab-2">Thêm Trang</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link block" href data-toggle="tab" data-target="#tab-3">Chỉnh sửa trang</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link block" href data-toggle="tab" data-target="#tab-4">Xoá trang</a>
                             </li>
                         </ul>
                     </div>
                     </div>
                 </div>
         </div>
-        <div class="col-md-9 pull-md-3">
+        <div class="col-sm-9 col-lg-10 light lt">
             <div class="tab-content pos-rlt">
                 <div class="tab-pane active" id="tab-1">
-                <div class="row">
-                    @foreach (var item in Model)
-                    {
-                        @Html.Partial("ChinhSua", item)
+                    <div >
+                        @Html.Action("CapNhatChuong", new { id = ViewBag.MaChuong })
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab-2">
+                        <div>
+                            @Html.Action("CapNhatTrang", new { id = ViewBag.MaChuong})
+                        </div>
+                       
+                    </div>
+                    <div class="tab-pane" id="tab-3">
+                       @Html.Action("CongCu",new { matruyen = ViewBag.MaTruyen,machuong = ViewBag.MaChuong})
+                        <div class="row">
+                            @foreach (var item in Model)
+                            {
+                                @Html.Partial("ChinhSua", item)
 
-                    }
-              </div>
-                </div>
-                <div class="tab-pane" id="tab-2">
-                    <div class="row">
-                        @foreach (var item in Model)
-                        {
-                            @Html.Partial("Xoa", item)
+                            }
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab-4">
+                        <div class="row">
+                            @foreach (var item in Model)
+                            {
+                                @Html.Partial("Xoa", item)
 
-                        }
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
                 </div>
             </div>
         </div>

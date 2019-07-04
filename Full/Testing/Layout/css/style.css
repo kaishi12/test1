@@ -36,11 +36,12 @@ body
 	padding: 0px;
 }
 body {
-	background: #FFF;
-	font-weight: normal;
-	position: relative;
-	font-size: 14px;
-	font-family: 'Poppins', sans-serif;
+    background: #FFF;
+    font-weight: normal;
+    position: relative;
+    font-size: 14px;
+    /*font-family: 'Poppins', sans-serif;*/
+    font-family: 'Roboto', sans-serif;
 }
 .fonts {
 	font-family: 'Merriweather', serif;
@@ -64,9 +65,10 @@ body {
       HEADINGS
 ========================================================*/
 h1, h2, h3, h4, h5, h6 {
-	font-weight: normal;
-	color: #252525;
-	font-family: 'Poppins', sans-serif;
+    font-weight: normal;
+    color: #252525;
+    /*font-family: 'Poppins', sans-serif;*/
+    font-family: 'Roboto', sans-serif;
 }
 h1 {
 	font-size: 42px;
@@ -1565,6 +1567,7 @@ header .is-sticky .sticky .user-basket .dropdown-menu {
 }
 .arrival-block .item img {
 	width: 100%;
+    height:362px;
 	margin-top: 0px;
 	top: 0px;
 	left: 0px;

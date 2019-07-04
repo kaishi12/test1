@@ -27,26 +27,17 @@ namespace Testing.Models
         public virtual DbSet<TrangTruyen> TrangTruyens { get; set; }
         public virtual DbSet<Truyen> Truyens { get; set; }
         public virtual DbSet<ChiTietTruyen> ChiTietTruyens { get; set; }
-        public virtual DbSet<ChiTietBanDich> ChiTietBanDichs { get; set; }
-
+        public virtual DbSet<ToaDo> ToaDos { get; set; }
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
           
-           modelBuilder.Entity<ChiTietBanDich>().HasKey(sc => new { sc.MaTrangTruyen, sc.MaBanDich });
+          
             //modelBuilder.Entity<BanDich>()
             //    .HasMany(e => e.TrangTruyens)
             //    .WithMany(e => e.BanDiches)
             //    .Map(m => m.ToTable("ChiTietBanDich").MapLeftKey("MaBanDich").MapRightKey("MaTrangTruyen"));
-            modelBuilder.Entity<BanDich>()
-                .HasMany(e => e.ChiTietBanDichs)
-                .WithRequired(e => e.BanDich)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<TrangTruyen>()
-                .HasMany(e => e.ChiTietBanDiches)
-                .WithRequired(e => e.TrangTruyen)
-                .WillCascadeOnDelete(false);
+            
 
             modelBuilder.Entity<ChuongTruyen>()
                 .HasMany(e => e.TrangTruyens)
@@ -57,13 +48,7 @@ namespace Testing.Models
                 .Property(e => e.KieuChu)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<KhungTruyen>()
-                .Property(e => e.ToaDo1)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<KhungTruyen>()
-                .Property(e => e.ToaDo2)
-                .IsUnicode(false);
+            
 
             modelBuilder.Entity<LoaiThongBao>()
                 .HasMany(e => e.ThongBaos)
@@ -112,6 +97,11 @@ namespace Testing.Models
                 .WithRequired(e => e.NguoiDung)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<NguoiDung>()
+                .HasMany(e => e.TrangTruyens)
+                .WithRequired(e => e.NguoiDung)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<TheLoai>()
                 .Property(e => e.Tag)
                 .IsUnicode(false);
@@ -136,10 +126,13 @@ namespace Testing.Models
                 .WithRequired(e => e.TrangThai1)
                 .HasForeignKey(e => e.TrangThai)
                 .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<TrangTruyen>()
-                .HasMany(e => e.KhungTruyens)
+                .HasMany(e => e.ToaDos)
                 .WithRequired(e => e.TrangTruyen)
+                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<ToaDo>()
+                .HasMany(e => e.KhungTruyens)
+                .WithRequired(e => e.ToaDo)
                 .WillCascadeOnDelete(false);
 
             //modelBuilder.Entity<Truyen>()

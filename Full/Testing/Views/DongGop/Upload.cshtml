@@ -1,0 +1,37 @@
+﻿@model Testing.Models.TrangTruyen
+<div class="col-xs-6 col-sm-4 col-md-3">
+    <div class="box p-a-xs" >
+        @using (Html.BeginForm("Upload", "DongGop", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+           
+           <input type="hidden" name="MaChuongTruyen" id="MaChuongTruyen" value="@Model.MaChuongTruyen" />
+           <input type="hidden" name="ThuTu" id="ThuTu" value="@Model.ThuTu" />
+           <input type="hidden" name="MaLoaiTrang" id="MaLoaiTrang" value="@Model.MaLoaiTrang" />
+           <input type="hidden" name="MaTrangTruyen" id="MaTrangTruyen" value="@Model.MaTrangTruyen" />
+            <input type="hidden" name="TenTrang" id="TenTrang" value="@Model.TenTrang" />
+            @Html.AntiForgeryToken()
+            <a href="#"><img src="~/Truyen/@Model.UrlAnh" alt="" class="img-responsive" style="height:304px"></a>
+            <div class="p-a-sm" >
+                <div class="text-ellipsis">trang @Model.ThuTu</div>
+                <div class="row text-center">
+
+                    <input style="margin-left:10px" type="file" id="@Model.TenTrang" name="fileupload" onchange="myFunction23('@Model.TenTrang','@Model.ThuTu')" />
+                    @if (@Model.MaLoaiTrang == 4)
+                    {
+                    <div class="text-ellipsis">
+                        <span style="margin-left:10px">Trang này là bản clear-text</span> 
+                    </div>
+                        <div><button disabled id="@Model.ThuTu" type="submit" class="md-btn md-raised m-b-sm w-xs black" style="margin-top:10px;margin-bottom:2px" onclick="return confirm('Chắc chưa?')">Lưu</button></div>
+                        }
+                        else
+                        {
+                        <div style="margin-left:10px"><button disabled id="@Model.ThuTu" type="submit" class="md-btn md-raised m-b-sm w-xs black" style="margin-top:10px;margin-bottom:2px">Lưu</button></div>
+                        }
+
+                    </div>
+            </div>
+        }
+
+    </div>
+</div>
+

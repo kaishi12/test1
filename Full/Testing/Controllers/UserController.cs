@@ -100,6 +100,8 @@ namespace Testing.Controllers
         }
         public ActionResult DangNhap()
         {
+            DAO.DaoChuongTruyen dao = new DAO.DaoChuongTruyen();
+            //var list = dao.LayListChuongTheoBanDich(3002, 1002);
             return View();
         }
         [HttpPost]

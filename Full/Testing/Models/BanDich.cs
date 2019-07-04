@@ -12,15 +12,14 @@ namespace Testing.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BanDich()
         {
-            ChiTietBanDichs = new HashSet<ChiTietBanDich>();
+           
         }
 
         [Key]
         public int MaBanDich { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        public string TenBanDich { get; set; }
+        
+        
 
         public int MaNgonNgu { get; set; }
 
@@ -36,7 +35,6 @@ namespace Testing.Models
 
         public virtual Truyen Truyen { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietBanDich> ChiTietBanDichs { get; set; }
+       
     }
 }

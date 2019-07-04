@@ -1090,3 +1090,12 @@ D:\DACS\Full\Testing\obj\Debug\Testing.pdb
 D:\DACS\Full\Testing\obj\Debug\Testing.Migrations.UpdateTableTrangTruyen.resources
 D:\DACS\Full\Testing\obj\Debug\Testing.Migrations.Update.resources
 D:\DACS\Full\Testing\obj\Debug\Testing.csprojAssemblyReference.cache
+D:\DACS\Full\Testing\obj\Debug\Testing.Migrations.UpdateBanDich.resources
+D:\DACS\Full\Testing\obj\Debug\Testing.Migrations.UpdateRelation.resources
+D:\DACS\Full\Testing\obj\Debug\Testing.Migrations.XoaChitietBanDich.resources
+D:\DACS\Full\Testing\obj\Debug\Testing.Migrations.XoaChitietBanDich2.resources
+D:\DACS\Full\Testing\obj\Debug\Testing.Migrations.XoaChitietBanDich3.resources
+D:\DACS\Full\Testing\obj\Debug\Testing.Migrations.XoaChitietBanDich4.resources
+D:\DACS\Full\Testing\obj\Debug\Testing.Migrations.Update1.resources
+D:\DACS\Full\Testing\obj\Debug\Testing.Migrations.Update2.resources
+D:\DACS\Full\Testing\obj\Debug\Testing.Migrations.s.resources

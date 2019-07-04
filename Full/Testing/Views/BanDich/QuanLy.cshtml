@@ -1,13 +1,11 @@
 ﻿@using Testing.Models
 @using PagedList.Mvc;
-@model PagedList.PagedList<BanDich>
+@model IEnumerable<BanDich>
 
 @{
     ViewBag.Title = "QuanLy";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
-
-<h2>QuanLy</h2>
 <div class="padding">
     <div class="m-b">
         <ol class="breadcrumb">
@@ -17,44 +15,42 @@
     </div>
     <div class="box">
         <div class="box-header">
-           
+
         </div>
+        <button id="buttonxoa" type="submit" value="Delete" class="btn btn-fw danger" onclick="return confirm('Bạn có chắc muốn xoá?')" style="margin:20px;">Xoá bản dịch</button>
         <div class="table-responsive">
-        <table ui-jp="dataTable" class="table table-striped b-t b-b">
-            <thead>
-                <tr>
-                    <th style="width:30%">Tên Truyện</th>
-                    <th style="width:15%">Ngôn Ngữ</th>
-                    <th style="width:15%">Số Chương truyện</th>
-                    <th style="width:25%">Số chương có bản dịch</th>
-                    <th style="width:15%">Trạng thái</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+            <table ui-jp="dataTable" class="table table-striped b-t b-b">
+                <thead>
                     <tr>
+                        <th style="width:5%"></th>
+                        <th style="width:30%">Tên Truyện</th>
+                        <th style="width:15%">Ngôn Ngữ</th>
+
+                        <th style="width:15%">Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td><input type="checkbox" id="chekbox" name="ID" value="@item.MaBanDich" class="custom-checkbox chkCheckBoxId" /></td>
+                        
                         <td class="center">
-                            <a href="/BanDich/DanhSachChuong/@item.MaProject?name=@item.TenBanDich">
+                            <a href="/BanDich/DanhSachChuong/@item.MaProject?name=@item.MaBanDich">
                                 @item.Truyen.TenProject
-                                </a>
+                            </a>
                         </td>
                         <td class="center">
                             @item.NgonNgu.TenNgonNgu
                         </td>
-                        <td class="center">
-                            @item.TenBanDich
-                        </td>
-                        <td class="center">
-                            @item.TenBanDich
-                        </td>
+
                         <td class="center">
                             @item.Truyen.TrangThai1.TenTrangThai
                         </td>
                     </tr>
-                }
-            </tbody>
-        </table>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
     </div>

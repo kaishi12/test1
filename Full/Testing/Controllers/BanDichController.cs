@@ -1,6 +1,7 @@
 ﻿using PagedList;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,7 +13,19 @@ namespace Testing.Controllers
 {
     public class BanDichController : Controller
     {
+      
         Model1 data = new Model1();
+        public ActionResult index(int id,string name)
+        {
+            
+            var mabandich = int.Parse(name);
+            DAO.DaoBanDich bd = new DAO.DaoBanDich();
+            DAO.DaoChuongTruyen dao = new DAO.DaoChuongTruyen();
+            var matruyen = dao.GetMaTruyen(id);
+           
+            
+            return View();
+        }
         public bool CheckSS()
         {
             if (Session["TaiKhoan"] == null)
@@ -21,7 +34,7 @@ namespace Testing.Controllers
                 return true;
         }
         // GET: BanDich
-        public ActionResult QuanLy(int? page)
+        public ActionResult QuanLy()
         {
             if (!CheckSS())
                 return RedirectToAction("DangNhap", "User");
@@ -30,21 +43,26 @@ namespace Testing.Controllers
                 NguoiDung nguoi = (NguoiDung)Session["TaiKhoan"];
                 DAO.DaoBanDich bandich0 = new DAO.DaoBanDich();
                 List<BanDich> bandich = bandich0.GetBanDichDangQuanLi(nguoi.MaNguoiDung);
-                int pageNum = (page ?? 1);
-                int pageSize = 7;
-                return View(bandich.ToPagedList(pageNum, pageSize));
+               
+                return View(bandich);
             }
 
         }
         public ActionResult ThemMoi(int id)
         {
-            DAO.DaoBanDich bandich = new DAO.DaoBanDich();
-            ViewBag.TenTruyen = bandich.GetTenTruyen(id);
-            ViewBag.NgonNgu = bandich.GetNgonNgu();
-            ViewBag.User = bandich.GetNguoiDung();
-            ViewBag.DsBanDich = bandich.GetBanDichDaCo(id);
-            ViewBag.id = id;
-            return View();
+            if (!CheckSS())
+                return RedirectToAction("DangNhap", "User");
+            else
+            {
+                DAO.DaoBanDich bandich = new DAO.DaoBanDich();
+                ViewBag.TenTruyen = bandich.GetTenTruyen(id);
+                ViewBag.NgonNgu = bandich.GetNgonNgu();
+                ViewBag.User = bandich.GetNguoiDung();
+                ViewBag.DsBanDich = bandich.GetBanDichDaCo(id);
+                ViewBag.id = id;
+               
+                return View();
+            }
         }
         [HttpPost]
         public ActionResult ThemMoi(BanDichModel model)
@@ -98,9 +116,6 @@ namespace Testing.Controllers
 
             }
         }
-        public ActionResult CapNhatChuong(int id,string name)
-        {
-            return View();
-        }
+       
     }
 }

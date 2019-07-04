@@ -1,66 +1,51 @@
 ﻿@model Testing.ViewModels.ChuongTruyenModel
-
-@{
-    ViewBag.Title = "CapNhatChuong";
-    Layout = "~/Views/Shared/_LayoutUser.cshtml";
-}
-
 <div class="padding">
-    <div class="m-b">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/User/Index">Home</a></li>
-            <li class="breadcrumb-item"><a href="/Truyen/QuanLyTruyenDaTao">Danh sách truyện đã tạo</a></li>
-            <li class="breadcrumb-item"><a href="/Truyen/QuanLyChuong/@ViewBag.Id">Danh sách chương </a></li>
-            <li class="breadcrumb-item active">Cập nhật chương</li>
-        </ol>
-    </div>
-        <div class="form">
-            @using (Html.BeginForm("CapNhatChuong", "ChuongTruyen", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-            {
-                @Html.AntiForgeryToken()
-                <div class="m-b text-sm">
-                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="row m-b">
-                    <div class="col-sm-6 form-group">
-                        <label>Thứ tự chương</label>
-                        <input type="number" class="form-control" required id="ThutuChuong" name="ThutuChuong" data-parsley-error-message="Yêu cầu nhập thứ tự chương" value="@Model.ThutuChuong">
-                    </div>
-                    <div class="form-group col-sm-6">
-                        <label>Tên chương truyện</label>
-                        <input type="text" class="form-control" id="TenChuong" name="TenChuong" required data-parsley-error-message="Yêu cầu nhập tên chương" value="@Model.TenChuong">
-
-                    </div>
-                </div>
-                @*<div class="form-group col-sm-6 ">
-                        <label>Loại trang</label>
-                        <select class="id form-control c-select" id="MaLoaiTrang" name="MaLoaiTrang">
-                            <option selected value="-1">--Chọn Trạng Thái--</option>
-                            @foreach (var item in ViewBag.LoaiTrang)
-                            {
-
-                                <option value="@item.MaLoaiTrang">@item.TenLoaiTrang</option>
-
-                            }
-                        </select>
-                    </div>*@
-
-                <button type="submit" class="md-btn md-raised m-b-sm w-xs blue">Lưu</button>
-                @*<button type="button" class="md-btn md-raised m-b-sm w-xs blue"><a id="link" href="/ChuongTruyen/CapNhatTrang/?id=@Model.MaChuong&loaitrang=@ViewBag.MaLoaiTrang">Thêm trang</a></button>*@
-            }
+    @using (Html.BeginForm("CapNhatChuong", "ChuongTruyen", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="m-b text-sm">
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
         </div>
-        @*@section scripts
-            {
-                <script>
-                $(document).ready(function () {
-                    $("select.id").change(function () {
-                        var selectedid = $(".id option:selected").val();
-                        console.log(selectedid);
-                        $("#link").attr("href", "/ChuongTruyen/CapNhatTrang/?id=@Model.MaChuong&loaitrang=" + selectedid);
-                    });
+
+        <div class="row m-b">
+            <div class="col-sm-3 form-group" style="margin-right:20px">
+                <label>Thứ tự chương</label>
+                <input type="number" class="form-control" required id="ThutuChuong" name="ThutuChuong" data-parsley-error-message="Yêu cầu nhập thứ tự chương" value="@Model.ThutuChuong">
+            </div>
+            <div class="form-group col-sm-4" style="margin-right:20px">
+                <label>Tên chương truyện</label>
+                <input type="text" class="form-control" id="TenChuong" name="TenChuong" required data-parsley-error-message="Yêu cầu nhập tên chương" value="@Model.TenChuong">
+
+            </div>
+           
+        </div>
+        <button type="submit" class="md-btn md-raised m-b-sm w-xs blue">Lưu</button>
+        @*<div class="form-group col-sm-6 ">
+                <label>Loại trang</label>
+                <select class="id form-control c-select" id="MaLoaiTrang" name="MaLoaiTrang">
+                    <option selected value="-1">--Chọn Trạng Thái--</option>
+                    @foreach (var item in ViewBag.LoaiTrang)
+                    {
+
+                        <option value="@item.MaLoaiTrang">@item.TenLoaiTrang</option>
+
+                    }
+                </select>
+            </div>*@
+
+
+        @*<button type="button" class="md-btn md-raised m-b-sm w-xs blue"><a id="link" href="/ChuongTruyen/CapNhatTrang/?id=@Model.MaChuong&loaitrang=@ViewBag.MaLoaiTrang">Thêm trang</a></button>*@
+    }
+    @*@section scripts
+        {
+            <script>
+            $(document).ready(function () {
+                $("select.id").change(function () {
+                    var selectedid = $(".id option:selected").val();
+                    console.log(selectedid);
+                    $("#link").attr("href", "/ChuongTruyen/CapNhatTrang/?id=@Model.MaChuong&loaitrang=" + selectedid);
                 });
-                </script>
-            }*@
-   
+            });
+            </script>
+        }*@
 </div>

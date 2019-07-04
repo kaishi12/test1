@@ -6,9 +6,13 @@
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 <style>
-    .col-sm-3
+    img {
+        max-width: 250px;
+        padding-top:10px;
+    }
+    #uploadbutton
     {
-        text-align:center;
+        cursor:pointer;
     }
 </style>
 <div class="padding">
@@ -34,24 +38,29 @@
                         <div class="form-group row">
                             <label for="TenTruyen" class="col-sm-3 form-control-label">Tên Truyện<span>(*)</span></label>
                             <div class="col-sm-7">
-                                <input type="text" ui-jp = "parsley" class="form-control" id="TenTruyen" name="TenTruyen" placeholder="Tên Truyện" required data-parsley-length = "[6, 32]" data-parsley-length-message = "Yêu cầu từ 6-32 kí tự" data-parsley-required-message = "Không được để trống">
+                                <input type="text" ui-jp="parsley" class="form-control" id="TenTruyen" name="TenTruyen" placeholder="Tên Truyện" required data-parsley-length="[6, 32]" data-parsley-length-message="Yêu cầu từ 6-32 kí tự" data-parsley-required-message="Không được để trống">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="TenKhac" class="col-sm-3 form-control-label">Tên khác<span>(*)</span></label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" id="TenKhac" name="TenKhac" placeholder="Tên khác" required data-parsley-required-message = "Không được để trống">
+                                <input type="text" class="form-control" id="TenKhac" name="TenKhac" placeholder="Tên khác" required data-parsley-required-message="Không được để trống">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="fileupload" class="col-sm-3 form-control-label">Ảnh bìa<span>(*)</span></label>
                             <div class="col-sm-3">
-                                <div class="form-file">
-                                    <input type="file" id="AnhBia" name="AnhBia" class="form-control">
-                                    <button class="btn white">Chọn Ảnh ...</button>
+                                <div class="form-file" id="formupload">
+
+                                    <input hidden="hidden" type="file" id="AnhBia" name="AnhBia" class="form-control"  onchange="readURL(this);">
+                                    <button type="button" class="btn btn-fw primary" id="uploadbutton">Chọn Ảnh ...</button>
+                                    
+                                    
+                                    @*<button class="btn white" for="AnhBia" type="button">Chọn Ảnh ...</button>*@
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label for="inputPassword3" class="col-sm-3 form-control-label">Trạng thái</label>
                             <div class="col-sm-7">
@@ -64,6 +73,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label for="Mota" class="col-sm-3 form-control-label">Mô tả</label>
                             <div class="col-sm-7">
@@ -85,11 +95,7 @@
                                         <option value="@item.MaTheLoai">@item.TenTheLoai</option>
                                     }
                                 </select>
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button" data-select2-open="multi-append">
-                                        <span class="fa fa-search"></span>
-                                    </button>
-                                </span>
+
                             </div>
                         </div>
                         <div class="form-group row m-t-md">
@@ -102,8 +108,35 @@
             </div>
         </div>
     </div>
-</div>       
+</div>
+
+    <script>
+        var img = document.createElement("img");
+        document.getElementById("formupload").appendChild(img);
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+               
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    img.src = reader.result;
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+    <script>
+        var realfile = document.getElementById("AnhBia");
+        var custombutton = document.getElementById("uploadbutton");
+       
+        custombutton.addEventListener("click", function () {
+            realfile.click();
+        })
+       
+    </script>
+   
 
 
 
-        
+

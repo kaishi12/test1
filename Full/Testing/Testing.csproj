@@ -156,6 +156,10 @@
     <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
+    <Reference Include="System.Console, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\System.Console.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Linq" />
@@ -289,6 +293,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\BanDichController.cs" />
     <Compile Include="Controllers\ChuongTruyenController.cs" />
+    <Compile Include="Controllers\DongGopController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TimKiemController.cs" />
     <Compile Include="Controllers\TruyenController.cs" />
@@ -327,9 +332,44 @@
     <Compile Include="Migrations\201905311303238_Update.Designer.cs">
       <DependentUpon>201905311303238_Update.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906140616380_UpdateBanDich.cs" />
+    <Compile Include="Migrations\201906140616380_UpdateBanDich.Designer.cs">
+      <DependentUpon>201906140616380_UpdateBanDich.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906150812290_UpdateRelation.cs" />
+    <Compile Include="Migrations\201906150812290_UpdateRelation.Designer.cs">
+      <DependentUpon>201906150812290_UpdateRelation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906160552505_XoaChitietBanDich.cs" />
+    <Compile Include="Migrations\201906160552505_XoaChitietBanDich.Designer.cs">
+      <DependentUpon>201906160552505_XoaChitietBanDich.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906160555454_XoaChitietBanDich2.cs" />
+    <Compile Include="Migrations\201906160555454_XoaChitietBanDich2.Designer.cs">
+      <DependentUpon>201906160555454_XoaChitietBanDich2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906160556276_XoaChitietBanDich3.cs" />
+    <Compile Include="Migrations\201906160556276_XoaChitietBanDich3.Designer.cs">
+      <DependentUpon>201906160556276_XoaChitietBanDich3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906160601077_XoaChitietBanDich4.cs" />
+    <Compile Include="Migrations\201906160601077_XoaChitietBanDich4.Designer.cs">
+      <DependentUpon>201906160601077_XoaChitietBanDich4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906160620153_Update1.cs" />
+    <Compile Include="Migrations\201906160620153_Update1.Designer.cs">
+      <DependentUpon>201906160620153_Update1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906160622493_Update2.cs" />
+    <Compile Include="Migrations\201906160622493_Update2.Designer.cs">
+      <DependentUpon>201906160622493_Update2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906160841548_s.cs" />
+    <Compile Include="Migrations\201906160841548_s.Designer.cs">
+      <DependentUpon>201906160841548_s.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BanDich.cs" />
-    <Compile Include="Models\ChiTietBanDich.cs" />
     <Compile Include="Models\ChiTietTruyen.cs" />
     <Compile Include="Models\ChuongTruyen.cs" />
     <Compile Include="Models\KhungTruyen.cs" />
@@ -342,6 +382,7 @@
     <Compile Include="Models\TheLoai.cs" />
     <Compile Include="Models\ThongBao.cs" />
     <Compile Include="Models\TinNhan.cs" />
+    <Compile Include="Models\ToaDo.cs" />
     <Compile Include="Models\TrangThai.cs" />
     <Compile Include="Models\TrangTruyen.cs" />
     <Compile Include="Models\Truyen.cs" />
@@ -355,6 +396,7 @@
     <Compile Include="ViewModels\LoaiTrangModel.cs" />
     <Compile Include="ViewModels\NgonNguModel.cs" />
     <Compile Include="ViewModels\ThongTinCaNhan.cs" />
+    <Compile Include="ViewModels\TrangTruyenModel.cs" />
     <Compile Include="ViewModels\User.cs" />
     <Compile Include="ViewModels\TheLoaiModel.cs" />
     <Compile Include="ViewModels\TrangThaiModel.cs" />
@@ -1179,7 +1221,13 @@
     <Content Include="Views\User\BaoMat.cshtml" />
     <Content Include="Views\ChuongTruyen\Xoa.cshtml" />
     <Content Include="Views\BanDich\DanhSachChuong.cshtml" />
-    <Content Include="Views\BanDich\CapNhatChuong.cshtml" />
+    <Content Include="Views\BanDich\index.cshtml" />
+    <Content Include="Views\Home\TruyenMoi.cshtml" />
+    <Content Include="Views\ChuongTruyen\CongCu.cshtml" />
+    <Content Include="Views\DongGop\DanhSachTruyen.cshtml" />
+    <Content Include="Views\DongGop\UploadCleartext.cshtml" />
+    <Content Include="Views\DongGop\DanhSachChuong.cshtml" />
+    <Content Include="Views\DongGop\Upload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1214,6 +1262,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905311303238_Update.resx">
       <DependentUpon>201905311303238_Update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906140616380_UpdateBanDich.resx">
+      <DependentUpon>201906140616380_UpdateBanDich.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906150812290_UpdateRelation.resx">
+      <DependentUpon>201906150812290_UpdateRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906160552505_XoaChitietBanDich.resx">
+      <DependentUpon>201906160552505_XoaChitietBanDich.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906160555454_XoaChitietBanDich2.resx">
+      <DependentUpon>201906160555454_XoaChitietBanDich2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906160556276_XoaChitietBanDich3.resx">
+      <DependentUpon>201906160556276_XoaChitietBanDich3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906160601077_XoaChitietBanDich4.resx">
+      <DependentUpon>201906160601077_XoaChitietBanDich4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906160620153_Update1.resx">
+      <DependentUpon>201906160620153_Update1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906160622493_Update2.resx">
+      <DependentUpon>201906160622493_Update2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906160841548_s.resx">
+      <DependentUpon>201906160841548_s.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

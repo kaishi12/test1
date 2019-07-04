@@ -13,7 +13,7 @@
             @foreach (var truyen in Model)
             {
                 <li>
-                    <div class="chapter_number"><a href="/Home/XemTruyen/?id=@truyen.MaProject&chuong=@truyen.ThuTuChuong" title="Chapter @truyen.ThuTuChuong: @truyen.TenChuongTruyen">Chapter @truyen.ThuTuChuong: @truyen.TenChuongTruyen</a></div>
+                    <div class="chapter_number"><a href="/Home/XemTruyen/?id=@truyen.MaProject&chuong=@truyen.MaChuongTruyen&mabandich=@ViewBag.Mabandich" title="@truyen.TenChuongTruyen">@truyen.TenChuongTruyen</a></div>
                     <div class="chapter_time">@truyen.LuotXem</div>
                     <div class="chapter_view">@truyen.ThoiGianCapNhat</div>
                 </li>

@@ -1,0 +1,67 @@
+﻿@using Testing.ViewModels
+@using PagedList.Mvc;
+@model IEnumerable<ChuongTruyenDaTao>
+@{
+    /**/
+
+    ViewBag.Title = "@ViewBag.TenTruyen";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div class="padding">
+    <div class="m-b">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/User/Index">Home</a></li>
+            <li class="breadcrumb-item"><a href="/Truyen/QuanLyTruyenDaTao">Danh sách truyện đã tạo</a></li>
+            <li class="breadcrumb-item active">Danh sách chương</li>
+        </ol>
+    </div>
+    <div class="box">
+        <div class="box-header">
+
+        </div>
+        @using (Html.BeginForm("QuanLyChuong", "Truyen", FormMethod.Post))
+        {
+            <div class="table-responsive">
+                <table ui-jp="dataTable" class="table table-striped b-t b-b">
+                    <thead>
+                        <tr>
+                           
+                            <th style="width:30%">Tên Chương</th>
+                            <th style="width:15%">Thời gian cập nhật</th>
+                            <th style="width:10%">Lượt xem</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="center">
+                                    <a href="/DongGop/UploadCleartext/@item.MaChuong">
+                                        <span>
+                                            @Html.DisplayFor(modelItem => item.TenChuong)
+                                        </span>
+                                    </a>
+                                </td>
+                                <td class="center">
+                                    @Html.DisplayFor(modelItem => item.Thoigian)
+                                </td>
+                                <td class="center">
+                                    @Html.DisplayFor(modelItem => item.LuotXem)
+                                </td>
+
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+
+</div>
+
+
+

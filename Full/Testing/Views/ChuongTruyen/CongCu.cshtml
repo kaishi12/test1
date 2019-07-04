@@ -1,0 +1,55 @@
+﻿<div class="row m-b padding">
+
+    @*<div class="col-sm-3">
+        <select class="form-control c-select" id="MaLoaiTrang" name="MaLoaiTrang" onchange="window.location.href=$(this).val()">
+            <option id="MaLoaiTrang" name="MaLoaiTrang" selected value="-1">--Chọn Loại Trang--</option>
+            @foreach (var item in ViewBag.LoaiTrang)
+            {
+                <option value="/ChuongTruyen/Index/@ViewBag.MaChuong?name=@ViewBag.TenChuong&loaitrang=@item.TenLoaiTrang">@item.TenLoaiTrang</option>
+            }
+        </select>
+    </div>*@
+    <div class="col-sm-4">
+        <select class="form-control c-select" id="#" name="#" onchange="window.location.href=$(this).val()">
+
+            @foreach (var item in ViewBag.ListChuong)
+            {
+                if (ViewBag.MaChuong == item.MaChuong)
+                {
+                    <option value="/ChuongTruyen/Index/@item.MaChuong?name=@item.TenChuong&loaitrang=@ViewBag.TenLoaiTrang" selected>@item.TenChuong</option>
+                }
+                else
+                {
+                    <option value="/ChuongTruyen/Index/@item.MaChuong?name=@item.TenChuong&loaitrang=@ViewBag.TenLoaiTrang">@item.TenChuong</option>
+                }
+            }
+        </select>
+    </div>
+    @*<div class="col-sm-2">
+        @if (ViewBag.chuongtruoc != null)
+        {
+            <button class="btn btn-fw black">
+                <a href="#">
+                    Chương trước
+                </a>
+            </button>
+        }
+        else
+        {
+            <button class="btn btn-fw black" disabled>Trang trước</button>
+        }
+    </div>
+    @if (ViewBag.chuongsau != null)
+    {
+        <button class="btn btn-fw black">
+            <a href="#">
+                Chương sau
+            </a>
+        </button>
+    }
+    else
+    {
+        <button class="btn btn-fw black" disabled>Trang sau</button>
+    }*@
+
+</div>

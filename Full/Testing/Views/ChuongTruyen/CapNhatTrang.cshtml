@@ -1,59 +1,31 @@
 ﻿@model IEnumerable<Testing.Models.TrangTruyen>
-@{
-    ViewBag.Title = "CapNhatTrang";
-    Layout = "~/Views/Shared/_LayoutUser.cshtml";
-}
-
-<div class="padding">
-    <div class="m-b">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/User/Index">Home</a></li>
-            <li class="breadcrumb-item"><a href="/Truyen/QuanLyTruyenDaTao">Danh sách truyện đã tạo</a></li>
-            <li class="breadcrumb-item"><a href="/Truyen/QuanLyChuong/@ViewBag.MaTruyen">Danh sách chương </a></li>
-            <li class="breadcrumb-item active">Thêm trang</li>
-        </ol>
-    </div>
-    <h2>@ViewBag.TenChuong</h2>
-    <div class="form">
+    <div class="form" style="margin:30px">
         @using (Html.BeginForm("CapNhatTrang", "ChuongTruyen", FormMethod.Post, new { @enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
             <div class="m-b text-sm">
                 @Html.ValidationSummary(false, "", new { @class = "text-danger" })
             </div>
-            <div class="form-group ">
-                <label>Loại trang</label>
-                <select class="id form-control c-select col-md-3" id="MaLoaiTrang" name="MaLoaiTrang" onchange="window.location.href=$(this).val()">
-                    <option selected value="-1" disabled>--Chọn Trạng Thái--</option>
-                    @foreach (var item1 in ViewBag.LoaiTrang11)
-                    {
-                        if (ViewBag.loaitrang == item1.MaLoaiTrang)
-                        {
-                            <option value="/ChuongTruyen/CapNhatTrang/?id=@ViewBag.id&loaitrang=@item1.MaLoaiTrang" selected>@item1.TenLoaiTrang</option>
-                        }
-                        else
-                        {
-                            <option value="/ChuongTruyen/CapNhatTrang/?id=@ViewBag.id&loaitrang=@item1.MaLoaiTrang">@item1.TenLoaiTrang</option>
-                        }
-                    }
-                </select>
-            </div>
             <div class="form-group">
                 <label> Số trang hiện tại</label>
                 <div class="row m-b">
-                    <input type="number" id="sotrang" class="form-control col-md-3" value="@Model.Count()" disabled>
-                    <input type="hidden" id="id" name="id" value="@ViewBag.id" />
-                    <input type="hidden" name="loaitrang" id="loaitrang" value="@ViewBag.loaitrang" />
-                    <div class="col-sm-1">
-                        <button class="md-btn md-fab m-b-sm white" type="button" onclick="myFunction()"><i class="material-icons md-24">&#xe145;</i></button>
+                    <div class="col-md-3"style="margin-right:20px;margin-left:8px">
+                        <input type="number" id="sotrang" class="form-control" value="@Model.Count()" disabled>
                     </div>
-                    <div class="col-sm-1">
-                        <button class="md-btn md-fab m-b-sm red" type="button" onclick="myFunction1()"><i class="material-icons md-24">&#xe145;</i></button>
+                       
+                  
+                        <input type="hidden" id="id" name="id" value="@ViewBag.id" />
+                        <input type="hidden" name="loaitrang" id="loaitrang" value="@ViewBag.loaitrang" />
+                        
+                            <button class="btn btn-icon black" type="button" onclick="myFunction() "style="margin-right:20px;"><i class="material-icons md-24">&#xe145;</i></button>
+                       
+                        
+                            <button class="btn btn-icon black" type="button" onclick="myFunction1()"style="margin-right:20px;"><i class="material-icons md-24">&#xe872;</i></button>
+                       
+
                     </div>
 
                 </div>
-
-            </div>
             <div class="form-group " id="filex">
 
                 <table class="table" id="myTable">
@@ -69,7 +41,7 @@
                     {
                         <tr>
                             <th>@item.ThuTu</th>
-                            <th><img src="~/Truyen/@item.UrlAnh" width="500" height="700" /></th>
+                            <th><img src="~/Truyen/@item.UrlAnh" width="190" height="273" /></th>
                             <th>@item.TenTrang</th>
                         </tr>
                     }
@@ -133,4 +105,3 @@
 
         }
     </div>
-</div>

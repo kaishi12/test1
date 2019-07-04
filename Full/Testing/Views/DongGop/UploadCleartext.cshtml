@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Testing.Models.TrangTruyen>
+@{
+    ViewBag.Title = "UploadCleartext";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div class="padding">
+    <div class="m-b">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/User/Index">Home</a></li>
+            <li class="breadcrumb-item"><a href="/DongGop/DanhSachTruyen">Danh sách truyện</a></li>
+
+            <li class="breadcrumb-item active">Thêm bản clear-text</li>
+        </ol>
+    </div>
+    <div class="col-md-12">
+        
+
+            <div class="row">
+
+                @foreach (var item in Model)
+                {
+                    @Html.Partial("Upload", item)
+                }
+
+
+            </div>
+      
+
+
+    </div>
+</div>
+<script>
+    function myFunction23(a, b) {
+
+        var x = document.getElementById(a);
+
+        if ('files' in x) {
+            if (x.files.length == 0) {
+                document.getElementById(b).disabled = true;
+            } else {
+                document.getElementById(b).disabled = false;
+            }
+        }
+    }
+</script>

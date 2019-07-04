@@ -22,6 +22,7 @@ namespace Testing.Controllers
             var webtruyen = (from tr in data.Truyens
                              join chap in data.ChuongTruyens
                              on tr.MaProject equals chap.MaProject
+                             where tr.DaXoa == false
                              group new { tr, chap } by new { tr.MaProject, tr.TenProject, tr.AnhBia, tr.MoTa, tr.TacGia } into grp
                              select new ViewModels.TruyenMoiCapNhat
                              {
@@ -30,6 +31,7 @@ namespace Testing.Controllers
                                  AnhBia = grp.Key.AnhBia,
                                  MoTa = grp.Key.MoTa,
                                  TacGia = grp.Key.TacGia,
+                                 MabanDich = data.BanDiches.Where(m => m.MaProject == grp.Key.MaProject).FirstOrDefault().MaBanDich,
                                  ThoiGianCapNhat = grp.Max(a => a.chap.ThoiGianCapNhat)
                              }).OrderByDescending(a => a.ThoiGianCapNhat).ToList();
             //var webtruyen = data.Truyens.OrderByDescending(a=>a.NgayTao).ToList();
@@ -51,15 +53,22 @@ namespace Testing.Controllers
             return PartialView();
         }
 
-        public ActionResult ChuongTruyenMoi(int id)
+        public ActionResult ChuongTruyenMoi(int id,int? mabandich)
         {
+            if(mabandich!=null)
+            ViewBag.Mabandich = mabandich;
+            
             var chuongtruyenmoi = (from chap in data.ChuongTruyens where chap.MaProject == id select chap).OrderByDescending(a => a.ThuTuChuong).Take(1).ToList();
             return PartialView(chuongtruyenmoi.Single());
         }
 
-        public ActionResult ThongTinTruyen(int id)
+        public ActionResult ThongTinTruyen(int id,string name)
         {
+            ViewBag.MaTruyen = id;
             var xemtruyen = from tr in data.Truyens where tr.MaProject == id select tr;
+            var dao = new DAO.DaoBanDich();
+            ViewBag.MaBanDich = name;
+            ViewBag.BanDich = dao.LayBanDichCuaTruyen(id);
             return View(xemtruyen.Single());
         }
 
@@ -73,10 +82,13 @@ namespace Testing.Controllers
             return PartialView(theloai);
         }
 
-        public ActionResult ChuongTruyen(int id)
+        public ActionResult ChuongTruyen(int id,string name)
         {
-            var chuongtruyen = (from chap in data.ChuongTruyens where chap.MaProject == id select chap).OrderByDescending(a => a.ThoiGianCapNhat).ToList();
-            return PartialView(chuongtruyen);
+            var dao = new DAO.DaoChuongTruyen();
+            ViewBag.Mabandich = name;
+            //var list = dao.LayListChuongTheoBanDich(id, int.Parse(name));
+            
+            return PartialView();
         }
 
         public ActionResult TheLoai()
@@ -147,63 +159,52 @@ namespace Testing.Controllers
             return View(truyen.ToPagedList(pageNum, pageSize));
         }
 
-        public ActionResult XemTruyen(int id, int chuong)
+        public ActionResult XemTruyen(int id, int chuong,string mabandich)
         {
             string TenTruyen = (from tr in data.Truyens where tr.MaProject == id select tr.TenProject).First();
+            ViewBag.Mabandich = mabandich;
+            var dao = new DAO.DaoBanDich();
+            //var chuong1 = dao.LayChuong(chuong,int.Parse(mabandich));
             ViewBag.TenTruyen = TenTruyen;
             ViewBag.MaTruyen = id;
-            ViewBag.SoChuong = chuong;
-            var chuongtruyen = (from tr in data.Truyens
-                                join chap in data.ChuongTruyens on tr.MaProject equals chap.MaProject
-                                join img in data.TrangTruyens on chap.MaChuongTruyen equals img.MaChuongTruyen
-                                join ltr in data.LoaiTrangs on img.MaLoaiTrang equals ltr.MaLoaiTrang
-                                where tr.MaProject == id && chap.ThuTuChuong == chuong 
-                                select new ViewModels.XemTruyen
-                                {
-                                    MaProject = tr.MaProject,
-                                    TenProject = tr.TenProject,
-                                    ThuTuChuong = chap.ThuTuChuong,
-                                    UrlAnh = img.UrlAnh,
-                                    ThuTu = img.ThuTu
-                                }).OrderBy(a => a.ThuTu).ToList();
-            return View(chuongtruyen);
+            ViewBag.MaChuong = chuong;
+            
+            return View();
         }
 
-        public ActionResult ChonTruyen(int id, int chuong)
+        public ActionResult ChonTruyen(int id, int chuong,string mabandich)
         {
-            ViewBag.id = id;
+            ViewBag.matruyen = id;
+            ViewBag.MaChuong = chuong;
+            ViewBag.Mabandich = mabandich;
+            DAO.DaoChuongTruyen dao = new DAO.DaoChuongTruyen();
+            //var list = dao.LayListChuongTheoBanDich(id, int.Parse(mabandich));
+            //var chuongtruoc = dao.LayChuongTruocTrongListBanDich(chuong,list);
+            //var chuongsau = dao.LayChuongSauTrongListBanDich(chuong,list);
+            //ViewBag.chuongtruoc = chuongtruoc;
+            //ViewBag.chuongsau = chuongsau;
+            //ViewBag.listchuong = list;
 
-            ViewBag.chuonghienhanh = chuong;
-            ViewBag.chuong = chuong;
-            int i = chuong;
-            int ChuongTruyenDau = (from tr in data.Truyens
-                                   join chap in data.ChuongTruyens on tr.MaProject equals chap.MaProject
-                                   where tr.MaProject == id
-                                   orderby chap.ThuTuChuong
-                                   select chap.ThuTuChuong).First();
-            ViewBag.ChuongTruyenDau = ChuongTruyenDau;
-
-            int ChuongTruyenCuoi = (from tr in data.Truyens
-                                    join chap in data.ChuongTruyens on tr.MaProject equals chap.MaProject
-                                    where tr.MaProject == id
-                                    orderby chap.ThuTuChuong descending
-                                    select chap.ThuTuChuong).First();
-            ViewBag.ChuongTruyenCuoi = ChuongTruyenCuoi;
-
-            int ChuongTruoc = chuong - 1;
-            ViewBag.ChuongTruoc = ChuongTruoc;
-            int ChuongSau = chuong + 1;
-            ViewBag.ChuongSau = ChuongSau;
-
-            var chuongtruyen = (from tr in data.Truyens
-                                join chap in data.ChuongTruyens on tr.MaProject equals chap.MaProject
-                                where tr.MaProject == id
-                                select new ViewModels.XemTruyen
-                                {
-                                    MaProject = tr.MaProject,
-                                    ThuTuChuong = chap.ThuTuChuong,
-                                }).OrderByDescending(a => a.ThuTuChuong).ToList();
-            return PartialView(chuongtruyen);
+            return PartialView();
+        }
+        public ActionResult TruyenMoi()
+        {
+            var webtruyen = (from tr in data.Truyens
+                             join chap in data.ChuongTruyens
+                             on tr.MaProject equals chap.MaProject
+                             where tr.DaXoa == false
+                             group new { tr, chap } by new { tr.MaProject, tr.TenProject, tr.AnhBia, tr.MoTa, tr.TacGia } into grp
+                             select new ViewModels.TruyenMoiCapNhat
+                             {
+                                 MaProject = grp.Key.MaProject,
+                                 TenProject = grp.Key.TenProject,
+                                 AnhBia = grp.Key.AnhBia,
+                                 MoTa = grp.Key.MoTa,
+                                 TacGia = grp.Key.TacGia,
+                                 MabanDich = data.BanDiches.Where(m => m.MaProject == grp.Key.MaProject).FirstOrDefault().MaBanDich,
+                                 ThoiGianCapNhat = grp.Max(a => a.chap.ThoiGianCapNhat)
+                             }).OrderByDescending(a => a.ThoiGianCapNhat).ToList();
+            return PartialView(webtruyen);
         }
     }
 }

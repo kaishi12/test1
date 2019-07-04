@@ -1,11 +1,14 @@
 ﻿@using Testing.ViewModels
-@using PagedList.Mvc;
-@model PagedList.PagedList<TruyenDaTao>
+@model IEnumerable<TruyenDaTao>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
-
+<style>
+    .mr10{
+        margin-right:20px;
+    }
+</style>
 <div class="padding">
     <div class="m-b">
         <ol class="breadcrumb">
@@ -15,24 +18,24 @@
     </div>
     <div class="box">
         <div class="box-header">
-            <h2>DataTables</h2>
+          
         </div>
         @using (Html.BeginForm("QuanLyTruyenDaTao", "Truyen", FormMethod.Post))
         {
             <div class="col-md-2" id="buttonxoa">
-                <button type="submit" value="Delete" class="btn btn-fw danger" onclick="return confirm('Bạn có chắc muốn xoá?')"><i class="fa fa-trash-o"></i> Delete</button>
+                <button type="submit" value="Delete" class="btn btn-fw danger" onclick="return confirm('Bạn có chắc muốn xoá?')">Xoá truyện</button>
             </div>
             <div class="table-responsive">
                 <table ui-jp="dataTable" id="datatable" class="table table-striped b-t b-b">
                     <thead>
                         <tr>
-                            <td><input type="checkbox" id="checkBoxAll" class="custom-checkbox" /></td>
-                            <th style="width:20%">Ảnh Bìa</th>
+                            <td style="width:5%"><input type="checkbox" id="checkBoxAll" class="custom-checkbox" /></td>
+                            <th style="width:10%">Ảnh Bìa</th>
                             <th style="width:25%">Tên Truyện</th>
                             <th style="width:15%">Tác Giả</th>
                             <th style="width:15%">Trạng Thái</th>
-                            <th style="width:25%">Ngày Tạo</th>
-                            <th></th>
+                            <th style="width:15%">Ngày Tạo</th>
+                            <th style="width:15%"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,7 +48,7 @@
                                 <td class="center">
                                     <a href="/Truyen/QuanLyChuong/@item.MaProject">
                                         <span>
-                                            <img src="~/Truyen/@item.AnhBia" style="width:250px; height:200px;" />
+                                            <img src="~/Truyen/@item.AnhBia" style="width:140px; height:120px;" />
                                         </span>
                                     </a>
 
@@ -67,8 +70,12 @@
                                     @Html.DisplayFor(modelItem => item.NgayTao)
                                 </td>
                                 <td class="center">
-                                    <a href="~/Truyen/CapNhatTruyen/@item.MaProject" class="rep1"> <i class="fa fa-edit" title="Cập nhật truyện"></i></a>
-                                    <a href="~/BanDich/ThemMoi/@item.MaProject" class="rep1"> <i class="fa fa-edit" title="Cập nhật truyện"></i></a>
+                                   
+                                        <a href="~/Truyen/CapNhatTruyen/@item.MaProject" class="mr10"> <i class="material-icons md-24" title="Cập nhật truyện" style="color:cornflowerblue;">&#xe3c9;</i></a>
+                                        <a href="~/BanDich/ThemMoi/@item.MaProject" class="mr10"> <i class="material-icons md-24" title="Thêm Bản dịch" style="color:lightseagreen">&#xe7f0;</i></a>
+                                    
+                                   
+                                    
                                 </td>
                             </tr>
                         }
@@ -94,16 +101,7 @@
     });
 });
     </script>
-    <script>
-        $('#modal-container').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget); // Button that triggered the modal
-            var url = button.attr("href");
-            var modal = $(this);
-
-            // note that this will replace the content of modal-content ever time the modal is opened
-            modal.find('.modal-content').load(url);
-        });
-    </script>
+   
 }
 
 
